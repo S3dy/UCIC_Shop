@@ -118,7 +118,7 @@
 	"account": {
 		"login": "LOGIN",
 		"signout": {
-			"title": "Modern Shop",
+			"title": "UCIC Shop",
 			"message": "Do you want to logout?",
 			"no": "Cancel",
 			"yes": "OK"
