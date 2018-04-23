@@ -53,6 +53,7 @@
         "cordova-plugin-geolocation": "~2.4.3",
         "cordova-plugin-google-analytics": "~1.8.3",
         "cordova-plugin-inappbrowser": "~2.0.2",
+        "cordova-plugin-ionic": "^4.1.5",
         "cordova-plugin-ionic-keyboard": "^2.0.5",
         "cordova-plugin-network-information": "~2.0.1",
         "cordova-plugin-request-location-accuracy": "~2.2.2",
@@ -105,7 +106,15 @@
             "cordova-plugin-x-toast": {},
             "cordova-sqlite-storage": {},
             "cordova.plugins.diagnostic": {},
-            "onesignal-cordova-plugin": {}
+            "onesignal-cordova-plugin": {},
+            "cordova-plugin-ionic": {
+                "APP_ID": "0172dd0f",
+                "CHANNEL_NAME": "Master",
+                "UPDATE_METHOD": "auto",
+                "WARN_DEBUG": "true",
+                "UPDATE_API": "https://api.ionicjs.com",
+                "MAX_STORE": "2"
+            }
         }
     }
 }
