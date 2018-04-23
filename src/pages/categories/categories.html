@@ -8,12 +8,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-row>
+
   <div #map id="map" style="width:100%;height:90%"></div>
-</ion-row>
-  <ion-row>
-  <button #procceed ion-button icon="icon-bag"></button>
-</ion-row>
+
+
+  <button #procceed ion-button full [navPush]="DetailCategoryPage" [navParams]="{id:60,vendor:59}">Start Shopping</button>
+
 </ion-content>
 
 <ion-footer (swipe)="onSwipeContent($event)"><ion-toolbar><footer-tabs></footer-tabs></ion-toolbar></ion-footer>

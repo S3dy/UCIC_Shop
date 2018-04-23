@@ -73,6 +73,9 @@ export class CategoriesPage {
 	ionViewDidEnter(){
 		this.buttonCart.update();
 	}
+	startShopping() {
+	this.navCtrl.pop(DetailCategoryPage);
+	}
 	onSwipeContent(e){
 		if(e['deltaX'] < -150 || e['deltaX'] > 150){
 			if(e['deltaX'] < 0) this.navCtrl.push(this.SearchPage);

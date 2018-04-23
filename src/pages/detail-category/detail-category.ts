@@ -27,7 +27,7 @@ export class DetailCategoryPage {
 	@ViewChild('cart') buttonCart;
 	DetailPage = DetailPage;
 	DetailCategoryPage = DetailCategoryPage;
-	id: Number; page = 1; sort: string = '-date'; range: Object = { lower: 0, upper: 0 };
+	id: Number; vendor: Number; page = 1; sort: string = '-date'; range: Object = { lower: 0, upper: 0 };
 	data: Object = {}; favorite: Object = {}; products: Object[] = []; attributes: Object[] = [];
 	filter: Object = { grid: true, open: null, value: {}, valueCustom: {} }; filtering: boolean;
 	categories: Object[] = []; loaded: boolean; over: boolean;
@@ -45,8 +45,9 @@ export class DetailCategoryPage {
 	) {
 		translate.get('detail').subscribe(trans => this.trans = trans);
 		this.id = navParams.get('id');
+		this.vendor=navParams.get('vendor');
 		core.showLoading();
-		let params = { term_id: this.id };
+		let params = { term_id: this.id , vendor: this.vendor};
 		http.get(wordpress_url + '/wp-json/wooconnector/product/getcategories', {
 			search: core.objectToURLParams(params)
 		}).subscribe(res => {
@@ -68,7 +69,7 @@ export class DetailCategoryPage {
 				} else {
 					core.hideLoading();
 					this.noResuilt = true;
-				}	
+				}
 			});
 			this.loadCategories();
 		});
@@ -131,6 +132,7 @@ export class DetailCategoryPage {
 			}
 			let params = {
 				'post_category' : this.id.toString(),
+				'vendor':this.vendor.toString(),
 				'post_num_page' : this.page,
 				'post_per_page' : wordpress_per_page,
 			}
@@ -142,7 +144,7 @@ export class DetailCategoryPage {
 					observable.next(products.json());
 					observable.complete();
 				});
-			} else {			
+			} else {
 				if (tmpFilter.length > 0) params['attribute'] = JSON.stringify(tmpFilter);
 				if (this.range['lower'] != 0) params['min_price'] = this.range['lower'];
 				if (this.range['upper'] != 0) params['max_price'] = this.range['upper'];
@@ -161,7 +163,7 @@ export class DetailCategoryPage {
 			if (products && products.length > 0) this.page++;
 			this.products = [];
 			this.products = products;
-			this.over = false;			
+			this.over = false;
 			refresher.complete();
 		});
 	}
@@ -279,7 +281,7 @@ export class DetailCategoryPage {
 					error => { console.log(error); }
 				);
 			} else this.storage.set('cart', val).then(() => {
-				this.checkCart();		
+				this.checkCart();
 				this.buttonCart.update();
 				if (!detail['in_stock'] && detail['backorders'] == 'notify') {
 					this.Toast.showShortBottom(this.trans["addOut"]).subscribe(
