@@ -26,6 +26,10 @@ export class CategoriesPage {
 	parents:Object[] = [];
 	id:Number;
 	noResuilt:boolean = false;
+	areamap=[];
+	areaCoords=[];
+	vendorid=0;
+
 	constructor(
 		private http: Http,
 		private core: Core,
@@ -51,30 +55,97 @@ export class CategoriesPage {
 			});
 		};
 		let initMap=() => {
+
 			this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then((resp) => {
     let mylocation = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
     this.map = new google.maps.Map(this.mapElement.nativeElement, {
       zoom: 15,
       center: mylocation
     });
-		let marker = new google.maps.Marker({
+	var marker = new google.maps.Marker({
 	 position: mylocation,
 	 map: this.map,
 	 draggable:true
   });
+
+	let updateVendor= (position)=>{
+			if( google.maps.geometry.poly.containsLocation(position, this.areamap[0]) ) {
+				this.vendorid = 58;
+				return;
+	}
+	if( google.maps.geometry.poly.containsLocation(position, this.areamap[1]) ) {
+			this.vendorid = 59;
+			return;
+	}
+this.vendorid = 0;
+console.log(this.vendorid);
+		}
+google.maps.event.addListener(this.map, 'drag', function(e) {
+	marker.setPosition(this.map.getCenter());
+
+});
+google.maps.event.addListener(marker, 'dragend', function(e) {
+updateVendor(e.latLng);
+
+});
+this.areaCoords[1] = [new google.maps.LatLng(21.41504803916235, 39.25614042871098),
+new google.maps.LatLng(21.39949308208154, 39.346907556152246),
+new google.maps.LatLng(21.314035940293635, 39.329978540039065),
+new google.maps.LatLng(21.26940401302275, 39.31540914306629),
+new google.maps.LatLng(21.25922089539485, 39.28844648681638),
+new google.maps.LatLng(21.2553, 39.26769999999988),
+new google.maps.LatLng(21.2504, 39.237699999999904),
+new google.maps.LatLng(21.2543, 39.20649999999989),
+new google.maps.LatLng(21.26529, 39.19249999999988),
+new google.maps.LatLng(21.28625970522107, 39.175583703613256),
+new google.maps.LatLng(21.3450975901386, 39.1808160263671),
+new google.maps.LatLng(21.385787796792904, 39.19904689941404)];
+this.areamap[0] = new google.maps.Polygon({
+paths: this.areaCoords[1],
+strokeColor: "#00FF00",
+strokeOpacity: 0.8,
+strokeWeight: 3,
+fillColor: "#00FF00",
+fillOpacity: 0.35
+});
+this.areamap[0].setMap(this.map);
+this.areaCoords[2] = [new google.maps.LatLng(21.440071522591765, 39.86615254609376),
+new google.maps.LatLng(21.42611367070063, 39.88928509101561),
+new google.maps.LatLng(21.4090824, 39.90291180000008),
+new google.maps.LatLng(21.385885610961964, 39.916151546093715),
+new google.maps.LatLng(21.36002995473438, 39.91665471015631),
+new google.maps.LatLng(21.34363396852816, 39.895564900585896),
+new google.maps.LatLng(21.324662178292847, 39.866251546093736),
+new google.maps.LatLng(21.335598581019322, 39.8171987628906),
+new google.maps.LatLng(21.361938381445487, 39.79770559882809),
+new google.maps.LatLng(21.392179132364202, 39.787999080273494),
+new google.maps.LatLng(21.426063065778216, 39.7970079533203),
+new google.maps.LatLng(21.439896795992443, 39.82141863593756)];
+this.areamap[1] = new google.maps.Polygon({
+paths: this.areaCoords[2],
+strokeColor: "#00FF00",
+strokeOpacity: 0.8,
+strokeWeight: 3,
+fillColor: "#00FF00",
+fillOpacity: 0.35
+});
+this.areamap[1].setMap(this.map);
+
+updateVendor(mylocation);
   });
 
 		}
 		loadCategories();
 		platform.ready().then(() => {
     initMap();
+
   	});
 	}
 	ionViewDidEnter(){
 		this.buttonCart.update();
 	}
 	startShopping() {
-	this.navCtrl.pop(DetailCategoryPage);
+	//this.navCtrl.pop(DetailCategoryPage);
 	}
 	onSwipeContent(e){
 		if(e['deltaX'] < -150 || e['deltaX'] > 150){
@@ -82,4 +153,6 @@ export class CategoriesPage {
 			else this.navCtrl.popToRoot();
 		}
 	}
+
+
 }

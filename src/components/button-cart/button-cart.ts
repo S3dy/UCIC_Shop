@@ -35,4 +35,9 @@ export class ButtonCartComponent {
 			this.navCtrl.pop();
 		else this.navCtrl.push(this.CartPage);
 	}
+  clearCart(){
+    this.storage.remove('cart').then(()=>{
+      this.update();
+    });
+  }
 }

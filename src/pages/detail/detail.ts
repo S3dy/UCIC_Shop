@@ -31,7 +31,7 @@ export class DetailPage {
 	CommentsPage = CommentsPage;
 	DetailPage = DetailPage;
 	@ViewChild('cart') buttonCart;
-	id: Number; slides: Number = 1; quantity: Number = 1; variation: Number;
+	id: Number; slides: Number = 1; quantity: Number = 300; variation: Number;
 	detail: any = { wooconnector_crop_images: [] }; attributes: any = {}; rating:Number; ratingCount:Number; reviewCount:Object = [];
 	description: string;
 	reviews_allowed: boolean;
@@ -101,7 +101,13 @@ export class DetailPage {
 			if(this.detail.default_attributes.length > 0) {
 				this.detail.default_attributes.forEach((val) => {
 					this.attributes[val["name"]].option = val["option"].toLowerCase();
+					console.log(val["name"]);
 				});
+			}
+
+			//get quantities
+			if(this.attributes['Quantity']){
+				console.log(this.attributes['Quantity']);
 			}
 			this.getVariation();
 			this.core.hideLoading();

@@ -8,6 +8,7 @@ import { Core } from '../../service/core.service';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '../../module/ng2-translate';
 import { Toast } from '@ionic-native/toast';
+import { Platform } from 'ionic-angular';
 
 //Pipes
 import { ObjectToArray } from '../../pipes/object-to-array';
@@ -31,7 +32,7 @@ export class DetailCategoryPage {
 	data: Object = {}; favorite: Object = {}; products: Object[] = []; attributes: Object[] = [];
 	filter: Object = { grid: true, open: null, value: {}, valueCustom: {} }; filtering: boolean;
 	categories: Object[] = []; loaded: boolean; over: boolean;
-	noResuilt:boolean = false; quantity: Number = 1; trans: Object = {};
+	noResuilt:boolean = false; quantity: Number = 300; trans: Object = {};
 	actionCart: Object = [];
 	cartArray: Object = {};
 
@@ -41,7 +42,8 @@ export class DetailCategoryPage {
 		private http: Http,
 		private storage: Storage,
 		translate: TranslateService,
-		private Toast: Toast
+		private Toast: Toast,
+		public plt:Platform
 	) {
 		translate.get('detail').subscribe(trans => this.trans = trans);
 		this.id = navParams.get('id');
@@ -77,7 +79,7 @@ export class DetailCategoryPage {
 	ionViewDidEnter() {
 		this.checkCart();
 		this.getFavorite();
-		this.buttonCart.update();
+		this.buttonCart.clearCart();
 	}
 	checkCart() {
 		this.storage.get('cart').then(val => {
@@ -135,6 +137,7 @@ export class DetailCategoryPage {
 				'vendor':this.vendor.toString(),
 				'post_num_page' : this.page,
 				'post_per_page' : wordpress_per_page,
+				'lang':plt.lang(),
 			}
 			let sortParams = this.core.addSortToSearchParams(params, this.sort);
 			if (tmpFilter.length == 0 && !this.range['lower'] && !this.range['upper']) {
@@ -255,6 +258,7 @@ export class DetailCategoryPage {
 			);
 			return;
 		}
+		this.quantity = 300;
 		let data: any = {};
 		let idCart = detail["id"];
 		data.idCart = idCart;
