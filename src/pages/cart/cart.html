@@ -4,6 +4,7 @@
   </ion-navbar>
 </ion-header>
 
+
 <ion-content secondary-bg>
 <!-- Empty -->
 <ion-row center *ngIf="checkCart && (data|ObjectToArray).length < 1" ion-fixed width-100 height-100>
@@ -82,7 +83,7 @@
 			<ion-icon gray tappable margin-left (click)="remove(i)" name="ios-close-circle-outline" float-left></ion-icon>
 		</ion-col>
 		<ion-col text-right primary *ngIf="coupon.value">-{{coupon.value|price}}</ion-col>
-	</ion-row> 
+	</ion-row>
 	<button ion-button block icon-right margin-top (click)="gotoAddress()" [disabled]="invalid" class="button-checkout">
 		<span text-uppercase>{{'cart.checkout'|translate}}</span>
 		<ion-icon name="ios-arrow-round-forward"></ion-icon>

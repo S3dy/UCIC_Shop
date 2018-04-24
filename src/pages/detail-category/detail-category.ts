@@ -273,12 +273,12 @@ export class DetailCategoryPage {
 		data.sold_individually = detail['sold_individually'];
 		this.storage.get('cart').then((val) => {
 			let individually: boolean = true;
-			/*if (!val) val = {};
+			if (!val) val = {};
 			if (!val[idCart]) val[idCart] = data;
 			else {
 				if (!detail['sold_individually']) val[idCart].quantity += data.quantity;
 				else individually = true;
-			}*/
+			}
 			if (individually) {
 				this.Toast.showShortBottom(this.trans['individually']['before'] + detail['name'] + this.trans['individually']['after']).subscribe(
 					toast => { },
