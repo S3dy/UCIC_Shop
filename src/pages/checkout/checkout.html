@@ -23,7 +23,7 @@
 			<p>{{user.shipping_city}}, {{user.shipping_state}} {{user.shipping_postcode}}</p>
 			<p>{{user.shipping_country}}</p>
 		</div>
-	</hide-show> 
+	</hide-show>
 	<hide-show color="light" no-border>
 		<span this-title><b>{{'checkout.billing_address'|translate}}</b></span>
 		<div this-content>
@@ -33,7 +33,7 @@
 			<p>{{user.billing_city}}, {{user.billing_state}} {{user.billing_postcode}}</p>
 			<p>{{user.billing_country}}</p>
 		</div>
-	</hide-show> 
+	</hide-show>
 </ion-list>
 <!-- Shipping method -->
 <ion-list *ngIf="data && data.shipping && data.shipping.length > 0">
@@ -54,7 +54,24 @@
 				</button>
 			</ion-list>
 		</div>
-	</hide-show> 
+	</hide-show>
+</ion-list>
+<!-- Shipping Calendar -->
+<ion-list>
+	<hide-show color="light" show="true" no-border>
+		<span this-title>
+			<ion-icon name="calendar" icon-big></ion-icon>
+			<b dark>{{'checkout.shipping_date'|translate}}</b>
+		</span>
+		<div this-content>
+			<ion-list no-margin>
+        <ion-item>
+          <ion-label>{{'checkout.shipping_date'|translate}}</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="calendar" ></ion-datetime>
+        </ion-item>
+			</ion-list>
+		</div>
+	</hide-show>
 </ion-list>
 <!-- Order detail -->
 <ion-list *ngIf="cart && 0<(cart|ObjectToArray).length">
@@ -116,7 +133,7 @@
 				</ion-row>
 			</div>
 		</div>
-	</hide-show> 
+	</hide-show>
 </ion-list>
 <!-- Payment method -->
 <ion-list *ngIf="data && data.payment">
@@ -133,7 +150,7 @@
 				</button>
 			</ion-list>
 		</div>
-	</hide-show> 
+	</hide-show>
 </ion-list>
 <ion-list padding light-bg no-margin>
 	<div class="checkout-term">

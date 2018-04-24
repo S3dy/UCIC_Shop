@@ -81,7 +81,7 @@ this.vendorid = 0;
 console.log(this.vendorid);
 		}
 google.maps.event.addListener(this.map, 'drag', function(e) {
-	marker.setPosition(this.map.getCenter());
+//	marker.setPosition(this.map.getCenter());
 
 });
 google.maps.event.addListener(marker, 'dragend', function(e) {
