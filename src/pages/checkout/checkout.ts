@@ -190,13 +190,14 @@ export class CheckoutPage {
 		alert.present();
 	}
 	checkout(res) {
+		console.log(res);
 		let order_id;
 		let checkoutUrl = wordpress_url + '/wooconnector-checkout/?data_key=' + res;
 		if (this.platform.is('cordova')) {
 			this.platform.ready().then(() => {
 				let isCheckout: boolean = false;
 				let openCheckout = this.InAppBrowser.create(checkoutUrl, '_blank', 'location=no');
-				openCheckout.on('loadstart').subscribe(res => {			
+				openCheckout.on('loadstart').subscribe(res => {
 					let url = wordpress_url;
 					if (res.url.indexOf(url) != 0) url.replace('http', 'https');
 					if ((res.url.indexOf(url) == 0 && res.url.indexOf('order-received') != -1) || (res.url.indexOf(url) == 0 && res.url.indexOf('order-pay') != -1)){
@@ -221,7 +222,7 @@ export class CheckoutPage {
 						// }
 						order_id = (res.url.split('?')[0]).split('order-received/')[1].replace("/", "");
 						this.navCtrl.push(ThanksPage, {id:order_id}).then(() => {
-							openCheckout.close();    
+							openCheckout.close();
                         	this.storageMul.remove(['cart', 'coupon']);
 						});
 					} else if (res.url.indexOf('cancel_order') != -1 && res.url.indexOf('paypal.com') == -1) {
