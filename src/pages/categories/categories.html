@@ -13,7 +13,7 @@
 
 
   <button #procceed ion-button full [navPush]="DetailCategoryPage" [navParams]="{id:60,vendor:vendorid}" *ngIf="vendorid>0">Start Shopping</button>
-  <button ion-button full *ngIf="vendorid==0">Coming Soon</button>
+  <button ion-button full *ngIf="vendorid<1">Coming Soon</button>
 </ion-content>
 
 <ion-footer (swipe)="onSwipeContent($event)"><ion-toolbar><footer-tabs></footer-tabs></ion-toolbar></ion-footer>
