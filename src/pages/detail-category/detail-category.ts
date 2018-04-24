@@ -137,7 +137,7 @@ export class DetailCategoryPage {
 				'vendor':this.vendor.toString(),
 				'post_num_page' : this.page,
 				'post_per_page' : wordpress_per_page,
-				'lang':plt.lang(),
+				'lang':this.plt.lang(),
 			}
 			let sortParams = this.core.addSortToSearchParams(params, this.sort);
 			if (tmpFilter.length == 0 && !this.range['lower'] && !this.range['upper']) {
