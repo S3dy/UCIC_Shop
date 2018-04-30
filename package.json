@@ -67,7 +67,7 @@
         "cordova.plugins.diagnostic": "~4.0.4",
         "ionic-angular": "3.9.2",
         "ionicons": "3.0.0",
-        "onesignal-cordova-plugin": "~2.3.3",
+        "onesignal-cordova-plugin": "^2.3.3",
         "rxjs": "5.5.7",
         "sw-toolbox": "3.6.0",
         "zone.js": "0.8.20"
@@ -106,7 +106,6 @@
             "cordova-plugin-x-toast": {},
             "cordova-sqlite-storage": {},
             "cordova.plugins.diagnostic": {},
-            "onesignal-cordova-plugin": {},
             "cordova-plugin-ionic": {
                 "APP_ID": "0172dd0f",
                 "CHANNEL_NAME": "Master",
@@ -114,7 +113,8 @@
                 "WARN_DEBUG": "true",
                 "UPDATE_API": "https://api.ionicjs.com",
                 "MAX_STORE": "2"
-            }
+            },
+            "onesignal-cordova-plugin": {}
         }
     }
 }
