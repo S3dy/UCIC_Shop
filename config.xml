@@ -124,5 +124,5 @@
         <variable name="UPDATE_API" value="https://api.ionicjs.com" />
         <variable name="MAX_STORE" value="2" />
     </plugin>
-    <plugin name="onesignal-cordova-plugin" spec="^2.1.0" />
+    <plugin name="onesignal-cordova-plugin": "2.1.0", />
 </widget>
