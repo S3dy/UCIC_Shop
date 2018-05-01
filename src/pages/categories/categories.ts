@@ -134,7 +134,35 @@ this.marker.addListener('dragend', updateVendor);
 
 
 updateVendor(this.marker.position);
-  });
+}).catch((error) => {
+  console.log('Error getting location', error);
+	let mylocation = new google.maps.LatLng(21.312269359774167,39.22146383056622);
+	this.map = new google.maps.Map(this.mapElement.nativeElement, {
+		zoom: 15,
+		center: mylocation
+	});
+this.marker = new google.maps.Marker({
+ position: mylocation,
+ map: this.map,
+ draggable:true
+});
+for (var key in this.areamap){
+this.areamap[key].setMap(this.map);
+if( google.maps.geometry.poly.containsLocation(this.marker.position, this.areamap[key]) ) {
+	this.vendorid = Number(key);
+	return;
+}
+}
+this.map.addListener('center_changed', function() {
+		// 3 seconds after the center of the map has changed, pan back to the
+		// marker.
+	});
+this.marker.addListener('dragend', updateVendor);
+
+
+updateVendor(this.marker.position);
+});
+;
 
 		}
 		loadCategories();
