@@ -28,7 +28,7 @@ export class CategoriesPage {
 	id:Number;
 	noResuilt:boolean = false;
 	public areamap=[];
-	marker:Marker;
+	marker;
 	vendorid=0;
 
 	constructor(
