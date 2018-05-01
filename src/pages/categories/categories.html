@@ -12,8 +12,8 @@
   <div #map id="map" style="width:100%;height:90%"></div>
 
 
-  <button #procceed ion-button full [navPush]="DetailCategoryPage" [navParams]="{id:60,vendor:vendorid}" *ngIf="vendorid>0">Start Shopping</button>
-  <button ion-button full *ngIf="vendorid<1">Coming Soon</button>
+  <button #procceed ion-button full [navPush]="DetailCategoryPage" [navParams]="{id:60,vendor:vendorid}" *ngIf="vendorid>0">Proceed to Shop</button>
+  <button ion-button full *ngIf="vendorid<1">Pick Location</button>
 </ion-content>
 
 <ion-footer (swipe)="onSwipeContent($event)"><ion-toolbar><footer-tabs></footer-tabs></ion-toolbar></ion-footer>

@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
 import { TranslateService } from '../../module/ng2-translate';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { StorageMulti } from '../../service/storage-multi.service';
-import { OneSignal } from '@ionic-native/onesignal';
+//import { OneSignal } from '@ionic-native/onesignal';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Config } from '../../service/config.service';
 import { Core } from '../../service/core.service';
@@ -58,7 +58,7 @@ export class AccountPage {
 		private navCtrl: NavController,
 		private config: Config,
 		private SocialSharing: SocialSharing,
-		private OneSignal: OneSignal,
+		//private OneSignal: OneSignal,
 		private InAppBrowser: InAppBrowser,
 		private core: Core,
 		private actionCtr: ActionSheetController,
@@ -146,7 +146,7 @@ export class AccountPage {
 	}
 	notification() {
 		this.storage.set('notification', this.data["notification"]).then(() => {
-			this.OneSignal.setSubscription(this.data["notification"]);
+			//this.OneSignal.setSubscription(this.data["notification"]);
 		});
 	}
 	changeTextSize() {

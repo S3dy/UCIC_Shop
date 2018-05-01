@@ -5,7 +5,7 @@ import { Platform, NavController, ModalController, ViewController } from 'ionic-
 // Custom
 import { Core } from '../../service/core.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { OneSignal } from '@ionic-native/onesignal';
+//import { OneSignal } from '@ionic-native/onesignal';
 import { Config } from '../../service/config.service';
 import { Storage } from '@ionic/storage';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
@@ -57,7 +57,7 @@ export class HomePage {
 		private navCtrl: NavController,
 		private InAppBrowser: InAppBrowser,
 		platform: Platform,
-		OneSignal: OneSignal,
+		//OneSignal: OneSignal,
 		config: Config,
 		private storage: Storage,
 		private screenOrientation: ScreenOrientation,
@@ -66,13 +66,13 @@ export class HomePage {
 		this.display = display_mode;
 		platform.ready().then(() => {
 			if (platform.is('cordova')) {
-				OneSignal.startInit(onesignal_app_id);
+				/*OneSignal.startInit(onesignal_app_id);
 				OneSignal.inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification);
 				OneSignal.handleNotificationOpened().subscribe(res => {
 					let payload = res.notification.payload;
 					if (payload && payload['launchURL']) this.openLink(payload['launchURL'], true);
 				});
-				OneSignal.endInit();
+				OneSignal.endInit();*/
 			}
 		});
 		storage.get('require').then(val =>{
@@ -88,13 +88,9 @@ export class HomePage {
 	}
 	ionViewDidEnter() {
 		this.buttonCart.update();
-		// console.log(this.slide_Update);
-		// if (this.platform.is('cordova')) {
-			// this.slide_Update.startAutoplay();
-		this.screenOrientation.onChange().subscribe(() => {this.slide_Update.update();});
-		// }
+		
 	}
-	
+
 	getPopupHomePage() {
         let url = wordpress_url + "/wp-json/wooconnector/popup/getpopuphomepage";
         let date = new Date();

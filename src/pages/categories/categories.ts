@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 
 // Custom
 import { Core } from '../../service/core.service';
-import { StorageMulti } from '../../service/storage-multi.service';
+import { Storage } from '@ionic/storage';
 
 // Page
 import { DetailCategoryPage } from '../detail-category/detail-category';
@@ -16,7 +16,7 @@ declare var google: any;
 @Component({
 	selector: 'page-categories',
 	templateUrl: 'categories.html',
-	providers: [StorageMulti,Core,Geolocation]
+	providers: [Core,Geolocation]
 })
 export class CategoriesPage {
 	@ViewChild('map') mapElement: ElementRef;
@@ -36,7 +36,7 @@ export class CategoriesPage {
 		private core: Core,
 		private navCtrl: NavController,
 		public platform: Platform,
-		private storageMul: StorageMulti,
+		private storage: Storage,
 		private geolocation: Geolocation
 	){
 		core.showLoading();
@@ -79,7 +79,6 @@ export class CategoriesPage {
 		fillColor: "#00FF00",
 		fillOpacity: 0.35
 		});
-
 		let params = {cat_num_page:1, cat_per_page:100, parent: '0'};
 		let loadCategories = () => {
 			http.get(wordpress_url+'/wp-json/wooconnector/product/getcategories', {
@@ -97,8 +96,19 @@ export class CategoriesPage {
 			});
 		};
 		let initMap=() => {
-
-			this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then((resp) => {
+			let updateVendor= (position)=>{
+			console.log(this.areamap);
+			for (var key in this.areamap){
+				if(this.areamap[key])
+				if( google.maps.geometry.poly.containsLocation(this.marker.position, this.areamap[key]) ) {
+					this.vendorid = Number(key);
+					return;
+				}
+			}
+			this.vendorid = 0;
+			console.log(this.vendorid);
+		};
+		this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then((resp) => {
     let mylocation = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
     this.map = new google.maps.Map(this.mapElement.nativeElement, {
       zoom: 15,
@@ -120,10 +130,10 @@ this.map.addListener('center_changed', function() {
 	    // 3 seconds after the center of the map has changed, pan back to the
 	    // marker.
 	  });
-this.marker.addListener('dragend', this.updateVendor);
+this.marker.addListener('dragend', updateVendor);
 
 
-this.updateVendor(this.marker.position);
+updateVendor(this.marker.position);
   });
 
 		}
@@ -144,17 +154,6 @@ this.updateVendor(this.marker.position);
 			if(e['deltaX'] < 0) this.navCtrl.push(this.SearchPage);
 			else this.navCtrl.popToRoot();
 		}
-	}
-	updateVendor(position){
-	console.log(this.areamap);
-	for (var key in this.areamap){
-		if( google.maps.geometry.poly.containsLocation(this.marker.position, this.areamap[key]) ) {
-			this.vendorid = Number(key);
-			return;
-		}
-	}
-	this.vendorid = 0;
-	console.log(this.vendorid);
 	}
 
 

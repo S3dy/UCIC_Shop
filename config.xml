@@ -102,7 +102,7 @@
     <plugin name="cordova-plugin-admob-free" spec="~0.15.0" />
     <plugin name="cordova-plugin-console" spec="~1.1.0" />
     <plugin name="cordova-plugin-geolocation" spec="~2.4.3">
-        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="For better posisioning we need to use your location " />
     </plugin>
     <plugin name="cordova-plugin-google-analytics" spec="~1.8.3" />
     <plugin name="cordova-plugin-network-information" spec="~2.0.1" />
@@ -124,5 +124,5 @@
         <variable name="UPDATE_API" value="https://api.ionicjs.com" />
         <variable name="MAX_STORE" value="2" />
     </plugin>
-    <plugin name="onesignal-cordova-plugin": "2.1.0", />
+    <plugin name="onesignal-cordova-plugin" spec="2.1.0" />
 </widget>

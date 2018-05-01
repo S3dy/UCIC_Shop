@@ -39,7 +39,7 @@
 	},
 	"tabs": {
 		"home": "Home",
-		"locate": "Delivery Location",
+		"locate": "Shop",
 		"search": "Search",
 		"account": "Me"
 	},
@@ -383,7 +383,8 @@
 		"use_billing": "Use the delivery as the billing address"
 	},
 	"checkout": {
-		"title": "Check out",
+		"shipping_date": "Shipping Date",
+		"title": "Checkout",
 		"address": "Address",
 		"change": "Change",
 		"delivery_address": "Delivery Address",
