@@ -272,7 +272,7 @@ export class DetailCategoryPage {
 		data.quantity = this.quantity;
 		data.sold_individually = detail['sold_individually'];
 		this.storage.get('cart').then((val) => {
-			let individually: boolean = true;
+			let individually: boolean = false;
 			if (!val) val = {};
 			if (!val[idCart]) val[idCart] = data;
 			else {
