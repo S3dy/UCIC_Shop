@@ -59,7 +59,7 @@
 				</span>
 				<ion-range mode="md" this-content dualKnobs="true" [min]="attributes.min_price" [max]="attributes.max_price" [(ngModel)]="range">
 				</ion-range>
-			</hide-show> 
+			</hide-show>
 			<hide-show color="light" *ngFor="let attr of attributes.attributes" class="filter-attribute">
 				<span this-title><b text-capitalize [innerHTML]="attr.name"></b></span>
 				<ion-list wrap this-content padding-bottom>
@@ -72,7 +72,7 @@
 						</ion-col>
 					</ion-row>
 				</ion-list>
-			</hide-show> 
+			</hide-show>
 			<hide-show color="light" *ngFor="let attr of attributes.custom" class="filter-attribute">
 				<span this-title><b text-capitalize [innerHTML]="attr.name"></b></span>
 				<ion-list wrap this-content padding-bottom>
@@ -85,7 +85,7 @@
 						</ion-col>
 					</ion-row>
 				</ion-list>
-			</hide-show> 
+			</hide-show>
 		</ion-list>
 	</ion-scroll>
 </div>
@@ -96,14 +96,14 @@
 			<ion-label [innerHTML]="option.text"></ion-label>
 			<ion-radio [value]="option.value"></ion-radio>
 		</ion-item>
-	</ion-list>		
+	</ion-list>
 </div>
 <!-- List products -->
 <ion-row padding-8 wrap *ngIf="0< products.length" [ngClass]="{'filter-list':!filter.grid}">
 	<ion-col padding-8 relative [attr.width-50]="filter.grid ? true : null" *ngFor="let product of products" class="product-block">
 		<div [navPush]="DetailPage" [navParams]="{id:product.id}" relative class="product-image clearfix">
-			<img float-left *ngIf="product.modernshop_images && product.modernshop_images[0].modern_square" [src]="product.modernshop_images[0].modern_square" />
-			<img float-left *ngIf="!product.modernshop_images || !product.modernshop_images[0].modern_square" src="assets/images/no-image.png" />
+			<img float-left *ngIf="product.modernshop_images && product.images[0].src" [src]="product.images[0].src" />
+			<img float-left *ngIf="!product.modernshop_images || !product.images[0].src" src="assets/images/no-image.png" />
 			<div absolute bottom primary-bg product-sale *ngIf="product.sale_price && product.type!='variable' && product.type!='grouped'" class="sale">
 				<span light>{{(product.sale_price/product.regular_price*100)-100|number:'1.0-0'}}%</span>
 			</div>
@@ -129,7 +129,7 @@
 				<span class="product-title" dark  float-left width-100 [innerHTML]="product.name"></span>
 				<div *ngIf="product.type=='variable' && 0< product.attributes.length" [hidden]="filter.grid">
 					<div *ngFor="let attribute of product.attributes|filter:{variation:true}">
-						<span [innerHTML]="attribute.name"></span>: 
+						<span [innerHTML]="attribute.name"></span>:
 						<span dark>{{attribute.options|ArrayJoin:', '}}</span>
 					</div>
 				</div>
