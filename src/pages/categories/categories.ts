@@ -39,7 +39,7 @@ export class CategoriesPage {
 		public platform: Platform,
 		private storage: Storage,
 		private geolocation: Geolocation,
-		private Toast: Toast,
+		private toast: Toast,
 	){
 		core.showLoading();
 		this.areamap[58] = new google.maps.Polygon({
