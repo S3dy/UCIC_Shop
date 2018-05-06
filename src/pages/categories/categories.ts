@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 // Custom
 import { Core } from '../../service/core.service';
 import { Storage } from '@ionic/storage';
+import { Toast } from '@ionic-native/toast';
 
 // Page
 import { DetailCategoryPage } from '../detail-category/detail-category';
@@ -37,7 +38,8 @@ export class CategoriesPage {
 		private navCtrl: NavController,
 		public platform: Platform,
 		private storage: Storage,
-		private geolocation: Geolocation
+		private geolocation: Geolocation,
+		private Toast: Toast,
 	){
 		core.showLoading();
 		this.areamap[58] = new google.maps.Polygon({
@@ -135,6 +137,7 @@ this.marker.addListener('dragend', updateVendor);
 
 updateVendor(this.marker.position);
 }).catch((error) => {
+	this.toast.show(`Location service isn't enabled in your device. Kindly enable location permissions to the app for accurate positioning.`, '5000', 'center')
   console.log('Error getting location', error);
 	let mylocation = new google.maps.LatLng(21.312269359774167,39.22146383056622);
 	this.map = new google.maps.Map(this.mapElement.nativeElement, {
