@@ -144,6 +144,10 @@ export class AccountPage {
 		if (this.Device.platform == 'Android') this.InAppBrowser.create(new Static(this.config).transform('modern_share_rate_android'), "_system");
 		else this.InAppBrowser.create(new Static(this.config).transform('modern_share_rate_ios'), "_system");
 	}
+
+	paymentPage() {
+		this.InAppBrowser.create("http://elementor.giantpace.com/confirm-payment", "_system");
+	}
 	notification() {
 		this.storage.set('notification', this.data["notification"]).then(() => {
 			//this.OneSignal.setSubscription(this.data["notification"]);
