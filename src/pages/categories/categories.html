@@ -8,12 +8,25 @@
 </ion-header>
 
 <ion-content>
+  <ion-row>
+  <ion-col col-10>
+    <ion-select [(ngModel)]="selectedaddress" (ionChange)="locate(selectedaddress)" placeholder="Select Address:">
+    <ion-option *ngFor="let address of locations" [value]="address">{{address.name}}</ion-option>
+    </ion-select>
+</ion-col>
+<ion-col col-2>
+  <button ion-button color="light"   ng-click="initMap" icon-only>
+        <ion-icon name='locate'></ion-icon>
+      </button>
+</ion-col>
+</ion-row>
 
-  <div #map id="map" style="width:100%;height:90%"></div>
+  <div #map id="map" style="width:100%;height:84%">
+  </div>
+  <div class="centerMarker"></div>
 
 
-  <button #procceed ion-button full [navPush]="DetailCategoryPage" [navParams]="{id:60,vendor:vendorid}" *ngIf="vendorid>0">Proceed to Shop</button>
-  <button ion-button full *ngIf="vendorid<1">Pick Location</button>
+  <button #procceed ion-button full  [navPush]="DetailCategoryPage" [navParams]="{id:60,vendor:vars.vendorid}" [disabled]="this.vars.vendorid <1">Start Shopping</button>
 </ion-content>
 
 <ion-footer (swipe)="onSwipeContent($event)"><ion-toolbar><footer-tabs></footer-tabs></ion-toolbar></ion-footer>

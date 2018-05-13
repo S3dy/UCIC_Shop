@@ -30,6 +30,7 @@ export class CheckoutPage {
 	login: Object; user: Object; cart: Object; coupon: Object[] = []; data: any;
 	shipping: string; payment: string; products: Object[];
 	trans: string; useBilling: boolean; checkCondition: boolean;
+	today:string = new Date().toJSON().split('T')[0];
 
 	constructor(
 		private storageMul: StorageMulti,

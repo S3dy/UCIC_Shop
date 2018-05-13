@@ -68,22 +68,10 @@ export class AddressPage {
       billing_last_name: ['', Validators.required],
       billing_company: [''],
       billing_address_1: ['', Validators.required],
-      billing_address_2: [''],
       billing_city: ['', Validators.required],
-      billing_country: ['', Validators.required],
-      billing_state: [''],
       billing_postcode: ['', Validators.required],
-      billing_phone: ['', Validators.compose([Validators.required, CoreValidator.isPhone])],
-      user_email: ['', Validators.compose([Validators.required, CoreValidator.isEmail])],
-      shipping_first_name: ['', Validators.required],
-      shipping_last_name: ['', Validators.required],
-      shipping_company: [''],
+      billing_phone: ['', Validators.compose([Validators.required])],
       shipping_address_1: ['', Validators.required],
-      shipping_address_2: [''],
-      shipping_city: ['', Validators.required],
-      shipping_country: ['', Validators.required],
-      shipping_state: [''],
-      shipping_postcode: ['', Validators.required]
     });
     this.getData();
   }
@@ -110,22 +98,10 @@ export class AddressPage {
       billing_last_name: this.data["billing_last_name"],
       billing_company: this.data["billing_company"],
       billing_address_1: this.data["billing_address_1"],
-      billing_address_2: this.data["billing_address_2"],
       billing_city: this.data["billing_city"],
-      billing_country: this.data["billing_country"],
-      billing_state: this.data["billing_state"],
       billing_postcode: this.data["billing_postcode"],
       billing_phone: this.data["billing_phone"],
-      user_email: this.data["user_email"],
-      shipping_first_name: this.data["shipping_first_name"],
-      shipping_last_name: this.data["shipping_last_name"],
-      shipping_company: this.data["shipping_company"],
       shipping_address_1: this.data["shipping_address_1"],
-      shipping_address_2: this.data["shipping_address_2"],
-      shipping_city: this.data["shipping_city"],
-      shipping_country: this.data["shipping_country"],
-      shipping_state: this.data["shipping_state"],
-      shipping_postcode: this.data["shipping_postcode"]
     });
     this.rawData = Object.assign({}, this.formAddress.value);
     this.updateShipping();
@@ -133,27 +109,11 @@ export class AddressPage {
   updateShipping() {
     if (this.useBilling) {
       this.formAddress.patchValue({
-        shipping_first_name: this.formAddress.value["billing_first_name"],
-        shipping_last_name: this.formAddress.value["billing_last_name"],
-        shipping_company: this.formAddress.value["billing_company"],
         shipping_address_1: this.formAddress.value["billing_address_1"],
-        shipping_address_2: this.formAddress.value["billing_address_2"],
-        shipping_city: this.formAddress.value["billing_city"],
-        shipping_country: this.formAddress.value["billing_country"],
-        shipping_state: this.formAddress.value["billing_state"],
-        shipping_postcode: this.formAddress.value["billing_postcode"]
       });
     } else {
       this.formAddress.patchValue({
-        shipping_first_name: this.data["shipping_first_name"],
-        shipping_last_name: this.data["shipping_last_name"],
-        shipping_company: this.data["shipping_company"],
         shipping_address_1: this.data["shipping_address_1"],
-        shipping_address_2: this.data["shipping_address_2"],
-        shipping_city: this.data["shipping_city"],
-        shipping_country: this.data["shipping_country"],
-        shipping_state: this.data["shipping_state"],
-        shipping_postcode: this.data["shipping_postcode"]
       });
       this.changeCountryShipping(this.formAddress.value["shipping_country"]);
     }
@@ -162,30 +122,13 @@ export class AddressPage {
     if (this.useBilling) this.updateShipping();
   }
   changeCountryBilling(e) {
-    if (this.states[e]) {
-      this.statesBilling = this.states[e];
-      this.formAddress.setControl('billing_state', new FormControl('', Validators.required));
-    } else {
-      this.statesBilling = null;
-      this.formAddress.setControl('billing_state', new FormControl(''));
-    }
-    if (this.useBilling) this.formAddress.patchValue({
-      shipping_country: this.formAddress.value["billing_country"]
-    });
+
   }
   changeCountryShipping(e) {
-    if (this.states[e]) {
-      this.statesShipping = this.states[e];
-      this.formAddress.setControl('shipping_state', new FormControl('', Validators.required));
-    } else {
-      this.statesShipping = null;
-      this.formAddress.setControl('shipping_state', new FormControl(''));
-    }
+
   }
   changeBillingState() {
-    if (this.useBilling) this.formAddress.patchValue({
-      shipping_state: this.formAddress.value["billing_state"]
-    });
+
   }
   confirm() {
     this.storage.set('useBilling', this.useBilling);
@@ -265,4 +208,5 @@ export class AddressPage {
       }
     });
   }
+
 }

@@ -31,7 +31,7 @@ export class DetailPage {
 	CommentsPage = CommentsPage;
 	DetailPage = DetailPage;
 	@ViewChild('cart') buttonCart;
-	id: Number; slides: Number = 1; quantity: Number = 300; variation: Number;
+	id: Number; slides: Number = 1; quantity: Number = 1; variation: Number;
 	detail: any = { wooconnector_crop_images: [] }; attributes: any = {}; rating:Number; ratingCount:Number; reviewCount:Object = [];
 	description: string;
 	reviews_allowed: boolean;
@@ -339,16 +339,6 @@ export class DetailPage {
 		this.navCtrl.popToRoot();
 	}
 	onSwipe(e) {
-		if (e['deltaX'] < -150 || e['deltaX'] > 150) {
-			if (e['deltaX'] > 0 && this.detail['wooconnector_previous_product']) {
-				this.navCtrl.push(this.DetailPage, { id: this.detail['wooconnector_previous_product'] }).then(() => {
-					this.navCtrl.remove(this.navCtrl.getActive().index - 1);
-				});
-			} else if (e['deltaX'] < 0 && this.detail['wooconnector_next_product']) {
-				this.navCtrl.push(this.DetailPage, { id: this.detail['wooconnector_next_product'] }).then(() => {
-					this.navCtrl.remove(this.navCtrl.getActive().index - 1);
-				});
-			}
-		}
+
 	}
 }

@@ -19,14 +19,14 @@ export class ButtonQuantityComponent implements ControlValueAccessor {
 	@Input() min:Number;
 	@Input() max:Number;
 	@Output() update: EventEmitter<number> = new EventEmitter<number>();
-    private innerValue: Number = 300;
+    private innerValue: Number = 1;
     private onTouchedCallback: () => void = noop;
     private onChangeCallback: (_: any) => void = noop;
-    public  isSelected = false; 
+    public  isSelected = false;
 
 	ngOnInit() {
 		if(this.min) this.min = Number(this.min)
-		else this.min = 300;
+		else this.min = 1;
 		if(this.max) this.max = Number(this.max)
 		else this.max = 2147483647;
 	}

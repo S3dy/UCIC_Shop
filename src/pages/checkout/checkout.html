@@ -17,11 +17,10 @@
 	<hide-show color="light" no-border>
 		<span this-title><b>{{'checkout.delivery_address'|translate}}</b></span>
 		<div this-content>
-			<p><b>{{user.shipping_first_name}} {{user.shipping_last_name}}</b></p>
-			<p>{{user.shipping_company}}</p>
-			<p>{{user.shipping_address_1}} {{user.shipping_address_2}}</p>
-			<p>{{user.shipping_city}}, {{user.shipping_state}} {{user.shipping_postcode}}</p>
-			<p>{{user.shipping_country}}</p>
+			<p>{{user.shipping_address_1}}</p>
+			<p>	<img src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&amp;size=600x300&amp;maptype=roadmap&#10;&amp;markers=color:blue|label:S|21.38222046780497,39.879493808496136&amp;key=AIzaSyDdvRvn8YWggaH1SCuqXiAhbS2CSGFQte0&amp;sensor=false&amp;language=en_US">
+</p>
+			<p>{{user.billing_phone}}</p>
 		</div>
 	</hide-show>
 	<hide-show color="light" no-border>
@@ -67,7 +66,7 @@
 			<ion-list no-margin>
         <ion-item>
           <ion-label>{{'checkout.shipping_date'|translate}}</ion-label>
-          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="calendar" ></ion-datetime>
+          <ion-datetime displayFormat="MM/DD/YYYY" [min]="today" [(ngModel)]="calendar" ></ion-datetime>
         </ion-item>
 			</ion-list>
 		</div>
