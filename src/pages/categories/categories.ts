@@ -23,7 +23,7 @@ export class CategoriesPage {
 	@ViewChild('gmap') gmapElement: any;
 	map: google.maps.Map;
 	marker: google.maps.Marker;
-	zones:Object[]=[];
+	zones:any[]=[];
 	@ViewChild('cart') buttonCart;
 	DetailCategoryPage = DetailCategoryPage;
 	SearchPage = SearchPage;
@@ -94,7 +94,7 @@ new google.maps.LatLng(21.392179132364202, 39.787999080273494),
 new google.maps.LatLng(21.426063065778216, 39.7970079533203),
 new google.maps.LatLng(21.439896795992443, 39.82141863593756)]];
 	for(var key in polygons){
-  this.zones.push({'polygon':new google.maps.Polygon({
+  this.zones.push({polygon:new google.maps.Polygon({
 	paths: polygons[key],
 
 	strokeColor: "#00FF00",
@@ -166,10 +166,6 @@ this.zones[key].polygon.setMap(this.map);
 		this.map.setCenter(new google.maps.LatLng(selectedaddress.latitude,selectedaddress.longitude));
 	}
 
-	setCenter(e:any){
-    e.preventDefault();
-    this.map.setCenter(new google.maps.LatLng(this.latitude, this.longitude));
-  }
 
 	selectvendor(){
 		var location =this.map.getCenter();

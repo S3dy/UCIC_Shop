@@ -41,7 +41,7 @@ export class AddressPage {
   states: Object = {};
   trans: Object;
   vendor:any;
-  location:any;
+  orderlocation:any;
 
   constructor(
     private http: Http,
