@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { NavController , Platform} from 'ionic-angular';
 import { Http } from '@angular/http';
 
@@ -11,17 +11,19 @@ import { Toast } from '@ionic-native/toast';
 import { DetailCategoryPage } from '../detail-category/detail-category';
 import { SearchPage } from '../search/search';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import {} from '@types/googlemaps';
 declare var wordpress_url:string;
-declare var google: any;
+//declare var google: any;
 @Component({
 	selector: 'page-categories',
 	templateUrl: 'categories.html',
 	providers: [Core,Geolocation]
 })
 export class CategoriesPage {
-	@ViewChild('map') mapElement: ElementRef;
-	map: any;
+	@ViewChild('gmap') gmapElement: any;
+	map: google.maps.Map;
+	marker: google.maps.Marker;
+	zones:Object[]=[];
 	@ViewChild('cart') buttonCart;
 	DetailCategoryPage = DetailCategoryPage;
 	SearchPage = SearchPage;
@@ -30,12 +32,11 @@ export class CategoriesPage {
 	noResuilt:boolean = false;
 	locations:Object[]=[];
 	selectedaddress:any;
-	public areamap={};
 	//marker: any;
-	public vars: any  = {
+	 vars: any  = {
 		vendorid:0,
 		};
-
+	startshopping:boolean =false;
 	constructor(
 		private http: Http,
 		private core: Core,
@@ -44,6 +45,7 @@ export class CategoriesPage {
 		private storage: Storage,
 		private geolocation: Geolocation,
 		private toast: Toast,
+		private cd:ChangeDetectorRef
 	){
 		core.showLoading();
 		this.locations.push({name:'home',latitude:21.312269359774167,longitude:39.22146383056622});
@@ -51,7 +53,7 @@ export class CategoriesPage {
 
 		platform.ready().then(() => {
 			let mylocation = new google.maps.LatLng(21.312269359774167,39.22146383056622);
-			this.map = new google.maps.Map(this.mapElement.nativeElement, {
+			var mapprop = {
 				zoom: 15,
 				center: mylocation,
 				zoomControl: false,
@@ -60,8 +62,9 @@ export class CategoriesPage {
 				streetViewControl: false,
 				rotateControl: false,
 				fullscreenControl: false
-			});
-			 let marker=new google.maps.Marker({
+			};
+			this.map = new google.maps.Map(this.gmapElement.nativeElement, mapprop );
+			 this.marker=new google.maps.Marker({
 				map:this.map,
 				position:mylocation,
 			});
@@ -91,7 +94,7 @@ new google.maps.LatLng(21.392179132364202, 39.787999080273494),
 new google.maps.LatLng(21.426063065778216, 39.7970079533203),
 new google.maps.LatLng(21.439896795992443, 39.82141863593756)]];
 	for(var key in polygons){
-  areaCoords.push({'polygon':new google.maps.Polygon({
+  this.zones.push({'polygon':new google.maps.Polygon({
 	paths: polygons[key],
 
 	strokeColor: "#00FF00",
@@ -99,42 +102,27 @@ new google.maps.LatLng(21.439896795992443, 39.82141863593756)]];
 	strokeWeight: 3,
 	fillColor: "#00FF00",
 	fillOpacity: 0.35
-}), vendorid:59});
+}), vendorid:58+Number(key)});
 }
-for(var key in areaCoords)
-areaCoords[key].polygon.setMap(this.map);
+for(var key in this.zones)
+this.zones[key].polygon.setMap(this.map);
 
-let updateVendor=(location)=>{
-	for(var key in areaCoords){
-if( google.maps.geometry.poly.containsLocation(location, areaCoords[key].polygon) ) {
-	this.vars.vendorid = areaCoords[key].vendorid;
-	console.log(this.vars.vendorid);
-
-	return;
-		}
-	}
-	this.vars.vendorid = 0;
-	console.log(this.vars.vendorid);
-
-};
-			google.maps.event.addListener(this.map,'center_changed', function() {
-					marker.setPosition(this.getCenter());
-
-					this.selectedaddress= null;
-
-				});
-				google.maps.event.addListener(this.map,'dragend', function() {
-					updateVendor(this.getCenter());
-
+			google.maps.event.addListener(this.map,'bounds_changed', ()=> {
+					this.marker.setPosition(this.map.getCenter());
+					this.selectvendor();
+					this.cd.detectChanges();
+					//this.selectedaddress= null;
 				});
     this.initMap();
 		core.hideLoading();
+		this.selectvendor();
 
 
   	});
 	}
 	ionViewDidEnter(){
 		this.buttonCart.update();
+
 	}
 	onSwipeContent(e){
 		if(e['deltaX'] < -150 || e['deltaX'] > 150){
@@ -156,17 +144,45 @@ if( google.maps.geometry.poly.containsLocation(location, areaCoords[key].polygon
 
 	}
 
-	initMapListeners(){
+	takemylocation(){
+		console.log('taking back my location');
+		this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then((resp) => {
+			let mylocation = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
+			this.map.setCenter(mylocation);
+		}).catch((error) => {
+			this.toast.show(`Location service isn't enabled in your device. Kindly enable location permissions to the app for accurate positioning.`, '5000', 'center')
+			console.log('Error getting location', error);
+			//this.initMapMarkers(mylocation);
 
+		});
 
 	}
 	initMapMarkers(mylocation){
 		this.map.setCenter(mylocation);
-		this.initMapListeners();
+	//	this.initMapListeners();
 	}
 	locate(selectedaddress){
 		console.log(selectedaddress,"is the selected value");
 		this.map.setCenter(new google.maps.LatLng(selectedaddress.latitude,selectedaddress.longitude));
+	}
+
+	setCenter(e:any){
+    e.preventDefault();
+    this.map.setCenter(new google.maps.LatLng(this.latitude, this.longitude));
+  }
+
+	selectvendor(){
+		var location =this.map.getCenter();
+		for(var key in this.zones){
+			if( google.maps.geometry.poly.containsLocation(location, this.zones[key].polygon) ) {
+				this.vars.vendorid = this.zones[key].vendorid;
+				this.storage.set('vendor', this.vars.vendorid);
+				this.storage.set('orderlocation', location);
+
+				return;
+			}
+		}
+		this.vars.vendorid = 0;
 	}
 
 }

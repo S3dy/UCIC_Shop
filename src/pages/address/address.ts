@@ -40,6 +40,8 @@ export class AddressPage {
   countries: Object[] = [];
   states: Object = {};
   trans: Object;
+  vendor:any;
+  location:any;
 
   constructor(
     private http: Http,
@@ -80,10 +82,13 @@ export class AddressPage {
     else this.isCache = true;
   }
   getData() {
-    this.storageMul.get(['login', 'useBilling', 'user']).then(val => {
+    this.storageMul.get(['login', 'useBilling', 'user','vendor','orderlocation']).then(val => {
       if (val['login']) this.login = val['login'];
+      if (val["vendor"]) this.vendor=val["vendor"];
+      if (val["orderlocation"]) this.orderlocation=val["orderlocation"];
       if (val['useBilling'] == false) this.useBilling = false;
       else this.useBilling = true;
+      console.log(this.orderlocation);
       if (val['user']) {
         this.data = val['user'];
         this.changeCountryBilling(this.data['billing_country']);

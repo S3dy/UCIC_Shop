@@ -159,10 +159,12 @@
 				<ion-col><b>{{'detail.quantity'|translate}}</b></ion-col>
 				<ion-col>{{detail.stock_quantity||0}} {{'detail.available'|translate}}</ion-col>
 			</ion-row>
+			<!--
 			<ion-row *ngFor="let attribute of detail.attributes">
 				<ion-col text-capitalize><b>{{attribute.name}}</b></ion-col>
 				<ion-col>{{attribute.options|ArrayJoin}}</ion-col>
 			</ion-row>
+		-->
 		</div>
 		<!-- Item Description -->
 		<div padding-horizontal light-bg class="detail-description" *ngIf="description">
@@ -174,7 +176,7 @@
 			<div *ngIf="viewMore">{{'detail.view_less'|translate}}</div>
 		</button>
 		</div>
-		<!-- Buyer Protection -->
+		<!-- Buyer Protection 
 		<div margin-top class="buyer-protection">
 			<div class="buyer-icon">
 				<ion-icon name="icon-safe" success></ion-icon>

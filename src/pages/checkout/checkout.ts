@@ -31,7 +31,7 @@ export class CheckoutPage {
 	shipping: string; payment: string; products: Object[];
 	trans: string; useBilling: boolean; checkCondition: boolean;
 	today:string = new Date().toJSON().split('T')[0];
-
+	shippingvars:any={};
 	constructor(
 		private storageMul: StorageMulti,
 		private core: Core,
@@ -52,8 +52,11 @@ export class CheckoutPage {
 	}
 	ionViewDidEnter() {
 		this.core.showLoading();
-		this.storageMul.get(['login', 'user', 'cart', 'coupon', 'useBilling']).then(val => {
+		this.storageMul.get(['login', 'user', 'cart', 'coupon', 'useBilling','vendor','orderlocation']).then(val => {
+			console.log(val);
 			if (val["login"] && val["login"]["token"]) this.login = val["login"];
+			//if (val["vendor"]) this.shippingvars.vendor=val["vendor"];
+			//if (val["orderlocation"]) this.shippingvars.orderLocation=val["orderlocation"];
 			if (val["user"]) this.user = val["user"];
 			if (val["cart"]) {
 				this.cart = val["cart"];

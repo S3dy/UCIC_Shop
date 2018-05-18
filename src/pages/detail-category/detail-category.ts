@@ -48,6 +48,14 @@ export class DetailCategoryPage {
 		translate.get('detail').subscribe(trans => this.trans = trans);
 		this.id = navParams.get('id');
 		this.vendor=navParams.get('vendor');
+
+		this.storage.get('oldvendor').then((val)=>{
+			if(!val) val =0;
+			if(val != this.vendor)
+			this.buttonCart.clearCart();
+
+			this.storage.set('oldvendor', this.vendor);
+		});
 		core.showLoading();
 		let params = { term_id: this.id , vendor: this.vendor};
 		http.get(wordpress_url + '/wp-json/wooconnector/product/getcategories', {
@@ -77,9 +85,10 @@ export class DetailCategoryPage {
 		});
 	}
 	ionViewDidEnter() {
+		this.buttonCart.update();
 		this.checkCart();
 		this.getFavorite();
-		this.buttonCart.clearCart();
+
 	}
 	checkCart() {
 		this.storage.get('cart').then(val => {
