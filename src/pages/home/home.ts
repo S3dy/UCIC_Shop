@@ -51,6 +51,7 @@ export class HomePage {
 	latesting: Number; latestIndex: Number = null;
 	display:string;
 	popup_homepage: Object;
+	lang:string = "ar";
 	constructor(
 		private http: Http,
 		private core: Core,
@@ -63,6 +64,17 @@ export class HomePage {
 		private screenOrientation: ScreenOrientation,
 		public modalCtrl: ModalController
 	) {
+		this.storage.get('lang').then((val)=>{
+			if(val) this.lang = val;
+		});
+		this.storage.get('oldlang').then((val)=>{
+			if(val) {
+				if(val!=this.lang) 			this.buttonCart.clearCart();
+				this.storage.set('oldlang',this.lang);
+			}else{
+				this.storage.set('oldlang',this.lang);
+			}
+		});
 		this.display = display_mode;
 		platform.ready().then(() => {
 			if (platform.is('cordova')) {
@@ -88,7 +100,7 @@ export class HomePage {
 	}
 	ionViewDidEnter() {
 		this.buttonCart.update();
-		
+
 	}
 
 	getPopupHomePage() {

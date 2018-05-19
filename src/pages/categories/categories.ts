@@ -32,6 +32,7 @@ export class CategoriesPage {
 	noResuilt:boolean = false;
 	locations:Object[]=[];
 	selectedaddress:any;
+	lang:string='ar';
 	//marker: any;
 	 vars: any  = {
 		vendorid:0,
@@ -49,7 +50,6 @@ export class CategoriesPage {
 	){
 		core.showLoading();
 		this.locations.push({name:'home',latitude:21.312269359774167,longitude:39.22146383056622});
-
 
 		platform.ready().then(() => {
 			let mylocation = new google.maps.LatLng(21.312269359774167,39.22146383056622);
@@ -69,7 +69,7 @@ export class CategoriesPage {
 				position:mylocation,
 			});
 	let areaCoords =[];
-	let polygons= [[new google.maps.LatLng(21.900216599713712, 39.26352186791996),
+	let polygons= []/*[[new google.maps.LatLng(21.900216599713712, 39.26352186791996),
 new google.maps.LatLng(21.77874622576213, 39.25695699462881),
 new google.maps.LatLng(21.634324312406413, 39.26148565063477),
 new google.maps.LatLng(21.52497094318719, 39.325537164306525),
@@ -92,7 +92,7 @@ new google.maps.LatLng(21.335598581019322, 39.8171987628906),
 new google.maps.LatLng(21.361938381445487, 39.79770559882809),
 new google.maps.LatLng(21.392179132364202, 39.787999080273494),
 new google.maps.LatLng(21.426063065778216, 39.7970079533203),
-new google.maps.LatLng(21.439896795992443, 39.82141863593756)]];
+new google.maps.LatLng(21.439896795992443, 39.82141863593756)]];*/
 	for(var key in polygons){
   this.zones.push({polygon:new google.maps.Polygon({
 	paths: polygons[key],
@@ -104,8 +104,7 @@ new google.maps.LatLng(21.439896795992443, 39.82141863593756)]];
 	fillOpacity: 0.35
 }), vendorid:58+Number(key)});
 }
-for(var key in this.zones)
-this.zones[key].polygon.setMap(this.map);
+
 
 			google.maps.event.addListener(this.map,'bounds_changed', ()=> {
 					this.marker.setPosition(this.map.getCenter());
@@ -114,6 +113,7 @@ this.zones[key].polygon.setMap(this.map);
 					//this.selectedaddress= null;
 				});
     this.initMap();
+		this.loadZones();
 		core.hideLoading();
 		this.selectvendor();
 
@@ -122,7 +122,17 @@ this.zones[key].polygon.setMap(this.map);
 	}
 	ionViewDidEnter(){
 		this.buttonCart.update();
-
+		this.storage.get('lang').then((val)=>{
+			if(val) this.lang = val;
+		});
+		this.storage.get('oldlang').then((val)=>{
+			if(val) {
+				if(val!=this.lang) 			this.buttonCart.clearCart();
+				this.storage.set('oldlang',this.lang);
+			}else{
+				this.storage.set('oldlang',this.lang);
+			}
+		});
 	}
 	onSwipeContent(e){
 		if(e['deltaX'] < -150 || e['deltaX'] > 150){
@@ -166,7 +176,34 @@ this.zones[key].polygon.setMap(this.map);
 		this.map.setCenter(new google.maps.LatLng(selectedaddress.latitude,selectedaddress.longitude));
 	}
 
+	loadZones(){
+		this.zones = [];
 
+
+		this.http.get(wordpress_url + '/wp-json/wooconnector/product/vendormap').subscribe(data => {
+		//console.log(data.json());
+		var points = data.json();
+
+		for(var key in points){
+			this.zones.push({polygon:new google.maps.Polygon({
+			paths: points[key],
+
+			strokeColor: "#00FF00",
+			strokeOpacity: 0.8,
+			strokeWeight: 2,
+			fillColor: "#FFFF00",
+			fillOpacity: 0.35
+		}), vendorid: key})
+
+		}
+
+		console.log(this.zones);
+
+		for(var key in this.zones)
+		this.zones[key].polygon.setMap(this.map);
+	 });
+
+	}
 	selectvendor(){
 		var location =this.map.getCenter();
 		for(var key in this.zones){

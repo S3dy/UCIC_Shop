@@ -13,6 +13,7 @@ export class ButtonCartComponent {
 	CartPage = CartPage;
 	@Input() icon: string;
 	cart:Object = {};
+  lang:string = 'ar';
 	constructor(private storage: Storage, private navCtrl: NavController) {
 		this.update();
 	}
@@ -29,6 +30,18 @@ export class ButtonCartComponent {
 				}
 			}
 		});
+
+    this.storage.get('lang').then((val)=>{
+      if(val) this.lang = val;
+    });
+    this.storage.get('oldlang').then((val)=>{
+      if(val) {
+        if(val!=this.lang) 			this.clearCart();
+        this.storage.set('oldlang',this.lang);
+      }else{
+        this.storage.set('oldlang',this.lang);
+      }
+    });
 	}
 	gotoCart(){
 		if(this.navCtrl.getPrevious() && this.navCtrl.getPrevious().component == this.CartPage)

@@ -1,11 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <ion-title><span no-wrap [innerHTML]="data.name"></span></ion-title>
+    <ion-title>{{'categories.products'|translate}}</ion-title>
 	<ion-buttons end>
 		<button-cart #cart icon="icon-bag"></button-cart>
 	</ion-buttons>
   </ion-navbar>
-  <ion-toolbar class="header-filter">
+  <!--ion-toolbar class="header-filter">
 	<button *ngIf="categories && 0<categories.length" ion-button clear color="dark" no-margin (click)="openCategory()" class="disable-hover button-drop">
 		<span [attr.primary]="filter.open=='category' ? true : null">{{'categories.category'|translate}}</span>
 		<ion-icon name="md-arrow-dropdown"></ion-icon>
@@ -28,7 +28,7 @@
 			<ion-icon name="icon-grid-out"></ion-icon>
 		</button>
 	</div>
-  </ion-toolbar>
+</ion-toolbar-->
 </ion-header>
 
 <ion-content>

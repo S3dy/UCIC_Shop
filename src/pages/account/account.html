@@ -4,9 +4,6 @@
 		<div mark absolute top left width-100 height-100></div>
 		<ion-row center padding absolute top left width-100 height-100>
 			<ion-col secondary>
-				<button absolute ion-button color="light" clear navPop class="button-back">
-					<ion-icon icon-big name="md-arrow-back"></ion-icon>
-				</button>
 				<div *ngIf="!isLogin">
 					<div class="account-avatar" margin-auto>
 						<ion-icon name="icon-account"></ion-icon>
@@ -52,9 +49,9 @@
 		<ion-item color="light" detail-none>
 			<ion-icon name="icon-language" item-left></ion-icon>
 			<ion-label>{{'account.language.label'|translate}}</ion-label>
-			<ion-select >
-				<!--ion-option value="ar" selected>{{'account.language.arabic'|translate}}</ion-option-->
-				<ion-option value="en" selected>{{'account.language.english'|translate}}</ion-option>
+			<ion-select [(ngModel)]="lang" (ngModelChange)="updateLang()">
+				<ion-option value="ar" >{{'account.language.arabic'|translate}}</ion-option>
+				<ion-option value="en" >{{'account.language.english'|translate}}</ion-option>
 			</ion-select>
 		</ion-item>
 		<button ion-item detail-none color="light" (click)="changeTextSize()">
@@ -87,7 +84,7 @@
 			<ion-label>{{'account.about_us'|translate}}</ion-label>
 		</button>
 		<button ion-item detail-none color="light" (click)="paymentPage()">
-			<ion-icon name="icon-info" item-left></ion-icon>
+			<ion-icon name="icon-bank" item-left></ion-icon>
 			<ion-label>{{'account.paymentPage'|translate}}</ion-label>
 		</button>
 		<ion-item mode="md">

@@ -78,6 +78,7 @@
 		]
 	},
 	"categories": {
+		"products":"Products",
 		"start": "Start Shopping",
 		"title": "Categories",
 		"no_data": "No categories",

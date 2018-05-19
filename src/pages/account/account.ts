@@ -47,7 +47,7 @@ export class AccountPage {
 	SearchPage = SearchPage;
 	isCache: boolean; isLogin: boolean; loadedOrder: boolean;
 	data: any = {};
-
+	lang:string ="ar";
 	constructor(
 		private storage: Storage,
 		private storageMul: StorageMulti,
@@ -72,7 +72,7 @@ export class AccountPage {
 		// this.getData();
 	}
 	getData() {
-		this.storageMul.get(['login', 'user']).then(val => {
+		this.storageMul.get(['login', 'user','lang']).then(val => {
 			if (val) {
 				if (val["login"] && val["login"]["token"]) {
 					this.data["login"] = val["login"];
@@ -98,6 +98,8 @@ export class AccountPage {
 					loadOrder();
 				}
 				if (val["user"]) this.data["user"] = val["user"];
+				if (val["lang"]) this.lang = val["lang"];
+
 			}
 		});
 		this.storageMul.get(['favorite', 'notification', 'text'])
@@ -180,5 +182,17 @@ export class AccountPage {
 	}
 	onSwipeContent(e) {
 		if (e['deltaX'] > 150) this.navCtrl.push(this.SearchPage);
+	}
+
+	updateLang(){
+		console.log(this.lang);
+		this.storage.set('lang',this.lang);
+		//refresh page
+		this.translate.setDefaultLang(this.lang);
+		this.translate.use(this.lang);
+		if(this.lang=="ar")
+		this.platform.setDir('rtl',true);
+		if(this.lang=="en")
+		this.platform.setDir('ltr',true);
 	}
 }

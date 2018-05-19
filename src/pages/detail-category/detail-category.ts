@@ -35,7 +35,7 @@ export class DetailCategoryPage {
 	noResuilt:boolean = false; quantity: Number = 300; trans: Object = {};
 	actionCart: Object = [];
 	cartArray: Object = {};
-
+	lang:string = 'ar';
 	constructor(
 		private navParams: NavParams,
 		private core: Core,
@@ -48,7 +48,17 @@ export class DetailCategoryPage {
 		translate.get('detail').subscribe(trans => this.trans = trans);
 		this.id = navParams.get('id');
 		this.vendor=navParams.get('vendor');
-
+		this.storage.get('lang').then((val)=>{
+			this.lang= val;
+		});
+		this.storage.get('oldlang').then((val)=>{
+			if(val) {
+				if(val!=this.lang) 			this.buttonCart.clearCart();
+				this.storage.set('oldlang',this.lang);
+			}else{
+				this.storage.set('oldlang',this.lang);
+			}
+		});
 		this.storage.get('oldvendor').then((val)=>{
 			if(!val) val =0;
 			if(val != this.vendor)
@@ -57,7 +67,7 @@ export class DetailCategoryPage {
 			this.storage.set('oldvendor', this.vendor);
 		});
 		core.showLoading();
-		let params = { term_id: this.id , vendor: this.vendor};
+		let params = { term_id: this.id , vendor: this.vendor,lang:this.lang};
 		http.get(wordpress_url + '/wp-json/wooconnector/product/getcategories', {
 			search: core.objectToURLParams(params)
 		}).subscribe(res => {
@@ -100,7 +110,7 @@ export class DetailCategoryPage {
 		});
 	}
 	loadCategories() {
-		let params = { cat_num_page: 1, cat_per_page: 100, parent: this.id };
+		let params = { cat_num_page: 1, cat_per_page: 100, parent: this.id ,lang:this.lang};
 		this.http.get(wordpress_url + '/wp-json/wooconnector/product/getcategories', {
 			search: this.core.objectToURLParams(params)
 		}).subscribe(res => {
@@ -146,7 +156,7 @@ export class DetailCategoryPage {
 				'vendor':this.vendor.toString(),
 				'post_num_page' : this.page,
 				'post_per_page' : wordpress_per_page,
-				'lang':this.plt.lang(),
+				'lang':this.lang,
 			}
 			let sortParams = this.core.addSortToSearchParams(params, this.sort);
 			if (tmpFilter.length == 0 && !this.range['lower'] && !this.range['upper']) {

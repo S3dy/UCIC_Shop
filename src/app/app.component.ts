@@ -38,6 +38,7 @@ export class MyApp {
 	trans: Object;
 	isLoaded: boolean;
 	disconnect: boolean;
+	lang: string="ar";
 	constructor(
 		platform: Platform,
 		translate: TranslateService,
@@ -55,8 +56,18 @@ export class MyApp {
 		admobFree : AdMobFree,
 		private device: Device
 	) {
-		translate.setDefaultLang(application_language);
-		translate.use(application_language);
+		storage.get('lang').then((val)=>{
+			console.log(val);
+			if(val) this.lang=val;
+			else this.lang = application_language;
+			translate.setDefaultLang(this.lang);
+			translate.use(this.lang);
+			if(this.lang=="ar")
+			platform.setDir('rtl',true);
+			if(this.lang=="en")
+			platform.setDir('ltr',true);
+		});
+
 		storage.set('require', false);
 		translate.get('general').subscribe(trans => {
 			storage.get('login').then(login => {
@@ -144,7 +155,7 @@ export class MyApp {
 	                admobFree.banner.config(bannerConfig);
 	                admobFree.banner.prepare()
 	                .then(() => {console.log('banner prepare');})
-	                .catch(e => console.log(e));  
+	                .catch(e => console.log(e));
 	            }
 
 	            if(admob['interstitial']) {

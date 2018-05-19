@@ -72,7 +72,7 @@ export class AddressPage {
       billing_address_1: ['', Validators.required],
       billing_city: ['', Validators.required],
       billing_postcode: ['', Validators.required],
-      billing_phone: ['', Validators.compose([Validators.required])],
+      billing_phone: ['', Validators.compose([Validators.required,Validators.pattern(/^05[0-9]{8}$/)])],
       shipping_address_1: ['', Validators.required],
     });
     this.getData();
