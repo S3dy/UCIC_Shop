@@ -58,7 +58,7 @@ export class AddressPage {
     private Diagnostic: Diagnostic,
     private Device: Device
   ) {
-  	console.log(platform);
+  	//console.log(platform);
     translate.get('states').subscribe(trans => {
       if (trans == 'states') trans = {};
       if (config['countries']) this.countries = config['countries'];

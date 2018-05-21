@@ -122,17 +122,6 @@ new google.maps.LatLng(21.439896795992443, 39.82141863593756)]];*/
 	}
 	ionViewDidEnter(){
 		this.buttonCart.update();
-		this.storage.get('lang').then((val)=>{
-			if(val) this.lang = val;
-		});
-		this.storage.get('oldlang').then((val)=>{
-			if(val) {
-				if(val!=this.lang) 			this.buttonCart.clearCart();
-				this.storage.set('oldlang',this.lang);
-			}else{
-				this.storage.set('oldlang',this.lang);
-			}
-		});
 	}
 	onSwipeContent(e){
 		if(e['deltaX'] < -150 || e['deltaX'] > 150){

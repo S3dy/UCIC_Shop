@@ -40,9 +40,9 @@
 		</div>
 		<div>{{'order.date'|translate}} {{order.date_created|date:date_format}}</div>
 		<div>
-			<span>{{'order.quantity'|translate}} {{order.line_items.length}}</span>
-			<span *ngIf="order.line_items.length <2">{{'order.item'|translate}}</span>
-			<span *ngIf="order.line_items.length >1">{{'order.items'|translate}}</span>
+			<span>{{'order.quantity'|translate}} {{order.itemcount}}</span>
+			<span *ngIf="order.itemcount <2">{{'order.item'|translate}}</span>
+			<span *ngIf="order.itemcount >1">{{'order.items'|translate}}</span>
 		</div>
 		<div>{{'order.total'|translate}} <span [innerHTML]="order.total"></span></div>
 	</ion-col>

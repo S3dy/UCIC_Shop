@@ -44,6 +44,14 @@ export class OrderPage {
 						this.noOrder = false;
 						this.page++;
 						this.data = order;
+						for (var key in this.data){
+							var totalcount=0;
+							for(var item in this.data[key].line_items)
+							totalcount+=this.data[key].line_items[item].quantity;
+
+							this.data[key].itemcount = totalcount; 
+						}
+						console.log(this.data);
 					} else {
 						this.noOrder = true;
 					}
