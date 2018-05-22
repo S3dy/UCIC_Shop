@@ -45,7 +45,7 @@
         "codelyzer": "^4.2.1",
         "com-sarriaroman-photoviewer": "~1.1.16",
         "cordova-admob-sdk": "^0.7.0",
-        "cordova-android": "7.0.0",
+        "cordova-android": "6.4.0",
         "cordova-android-play-services-gradle-release": "~1.3.0",
         "cordova-ios": "4.5.4",
         "cordova-plugin-camera": "~2.4.1",
@@ -85,7 +85,6 @@
             "cordova-android-play-services-gradle-release": {
                 "PLAY_SERVICES_VERSION": "12.+"
             },
-            "cordova-plugin-admob-free": {},
             "cordova-plugin-camera": {},
             "cordova-plugin-console": {},
             "cordova-plugin-device": {},
