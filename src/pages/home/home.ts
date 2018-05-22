@@ -66,6 +66,7 @@ export class HomePage {
 	) {
 		this.storage.get('lang').then((val)=>{
 			if(val) this.lang = val;
+			else this.storage.set('lang','ar');
 		});
 		this.storage.get('oldlang').then((val)=>{
 			if(val) {
