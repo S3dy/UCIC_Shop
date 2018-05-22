@@ -75,7 +75,7 @@ export class MyApp {
 				if (login && login['token']) params['jwt_token'] = login['token'];
 				params['include_text'] = '["modern_footer_details_title","modern_link_facebook","modern_link_google","modern_link_twitter","modern_footer_address","modern_footer_phone","modern_footer_email_domain"]';
 				let getStatic = () => {
-					http.get(wordpress_url + '/wp-json/modernshop/static/gettextstatic', {
+					http.get(wordpress_url + '/wp-json/modernshop/static/gettextstatic?lang='+this.lang, {
 						search: core.objectToURLParams(params)
 					}).subscribe(res => {
 						this.rootPage = this.HomePage;

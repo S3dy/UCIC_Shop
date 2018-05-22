@@ -72,6 +72,7 @@ export class DetailPage {
 	getData() {
 		// let params = { product_id: this.id };
 		this.core.showLoading();
+		console.log(this.lang,"lang"); 
 		this.http.get(wordpress_url + '/wp-json/wooconnector/product/getproduct/' + this.id+'?lang='+this.lang).subscribe(res => {
 			this.detail = res.json();
 			this.reviews_allowed = this.detail['reviews_allowed'];

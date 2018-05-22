@@ -203,6 +203,7 @@
 		"validate": "OK"
 	},
 	"detail": {
+		"Quantity": "Quantity",
 		"title": "Detail",
 		"rating": "rating",
 		"review": "review",

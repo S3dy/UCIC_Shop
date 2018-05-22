@@ -91,7 +91,7 @@ export class HomePage {
 		    if (!val) this.getPopupHomePage();
 		});
 		let params = {token: false, https: false, login: false}
-		http.get(wordpress_url + '/wp-json/modernshop/static/gettextstatic', {
+		http.get(wordpress_url + '/wp-json/modernshop/static/gettextstatic?lang='+this.lang, {
 			search: core.objectToURLParams(params)
 		}).subscribe(res => {
 			config.set('text_static', res.json()['text_static']);

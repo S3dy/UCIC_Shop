@@ -27,10 +27,10 @@
 		<div dark margin-right [innerHTML]="product.name" [navPush]="DetailPage" [navParams]="{id:product.id}"></div>
 		<ion-row wrap padding-4-vertical>
 			<ion-col width-50 no-padding *ngFor="let attr of (product.attributes|ObjectToArray)">
-				<span>{{attr.name}}: </span><b text-capitalize>{{attr.option}}</b>
+				<span>{{'detail.'+attr.name|translate}}: </span><b text-capitalize>{{attr.option}}</b>
 			</ion-col>
-		</ion-row>
-		<ion-row class="product-quantity" wrap>
+		</ion-row >
+		<ion-row dir="ltr" class="product-quantity" wrap>
 			<ion-col no-padding>
 				<span *ngIf="product.sale_price" text-through>
 					{{product.regular_price|price}}
