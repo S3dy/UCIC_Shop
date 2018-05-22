@@ -74,6 +74,8 @@ export class AddressPage {
       billing_postcode: ['', Validators.required],
       billing_phone: ['', Validators.compose([Validators.required,Validators.pattern(/^05[0-9]{8}$/)])],
       shipping_address_1: ['', Validators.required],
+      billing_email: ['', Validators.required],
+      billing_country: ['', Validators.required],
     });
     this.getData();
   }
@@ -107,6 +109,8 @@ export class AddressPage {
       billing_postcode: this.data["billing_postcode"],
       billing_phone: this.data["billing_phone"],
       shipping_address_1: this.data["shipping_address_1"],
+      billing_email: this.data["billing_email"],
+      billing_country: "SA",
     });
     this.rawData = Object.assign({}, this.formAddress.value);
     this.updateShipping();
@@ -137,7 +141,7 @@ export class AddressPage {
   }
   confirm() {
     this.storage.set('useBilling', this.useBilling);
-    if (this.useBilling) this.updateShipping();
+    //if (this.useBilling) this.updateShipping();
     if (JSON.stringify(this.rawData) != JSON.stringify(this.formAddress.value)) {
       if (this.login["token"]) {
         let params = this.core.objectToURLParams(this.formAddress.value);
@@ -151,6 +155,7 @@ export class AddressPage {
         }).subscribe(res => {
           this.data = res.json();
           this.storage.set('user', this.data).then(() => {
+            console.log(this.data);
             this.gotoCheckout();
           });
           this.core.hideLoading();

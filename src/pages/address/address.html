@@ -23,6 +23,11 @@
 			<ion-label floating>{{'address.company'|translate}}</ion-label>
 			<ion-input type="text" formControlName="billing_company"></ion-input>
 		</ion-item>
+    <ion-item mode="md" bg-transparent no-padding>
+      <ion-label floating>{{'address.email'|translate}}</ion-label>
+      <ion-input type="text" formControlName="billing_email"></ion-input>
+      <ion-input type="hidden" formControlName="billing_country" value="SA"></ion-input>
+    </ion-item>
 		<ion-item mode="md" bg-transparent no-padding>
 			<ion-label floating>{{'address.address_1'|translate}}</ion-label>
 			<ion-input type="text" formControlName="billing_address_1" (input)="checkUseBilling()"></ion-input>

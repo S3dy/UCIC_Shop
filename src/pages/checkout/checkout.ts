@@ -48,8 +48,8 @@ export class CheckoutPage {
 	) {
 		translate.get('checkout').subscribe(trans => this.trans = trans);
 		core.showLoading();
-		console.log(this.trans);
-		console.log(config);
+		console.log(this.trans,'trans');
+		console.log(config,'config');
 	}
 	ionViewDidEnter() {
 		this.core.showLoading();
@@ -75,7 +75,7 @@ export class CheckoutPage {
 					let params = {};
 					params['products'] = JSON.stringify(this.products);
 					if (val['coupon']) params['coupons'] = JSON.stringify(val['coupon']);
-					params['country'] = this.user['shipping_country'];
+					params['country'] = "SA";//"Saudi Arabia";
 					params['states'] = this.user['shipping_state'];
 					params['postcode'] = this.user['shipping_postcode'];
 					let option = {
@@ -152,8 +152,22 @@ export class CheckoutPage {
 		let params = {};
 		params['products'] = JSON.stringify(this.products);
 		Object.assign(params, this.core.filterProfile(this.user));
-		params['billing_email'] = this.user['user_email'];
+		console.log(this.user,'user');
+		console.log(this.data,'data');
+		params['billing_email'] = this.user['billing_email'];
+		//params['billing_postcode'] = "11111";
 		params['shipping_method'] = this.shipping;
+		//Needed to fullfill requirements
+		params['shipping_country'] = "SA";
+		params['shipping_postcode'] = this.user['billing_postcode'];
+		params['shipping_city'] = this.user['billing_city'];
+		params['shipping_phone'] = this.user['billing_phone'];
+		params['shipping_first_name'] = this.user['billing_first_name'];
+		params['shipping_last_name']=this.user['billing_last_name'];
+		params['order_location_lat']=this.orderlocation['lat'];
+		params['order_location_lng']=this.orderlocation['lng'];
+		params['vendor_id']=this.shippingvars.vendor;
+
 		params['payment_method'] = this.payment;
 		if(this.useBilling) params['ship_to_different_address'] = 0;
 		else params['ship_to_different_address'] = 1;
