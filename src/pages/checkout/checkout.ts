@@ -57,7 +57,7 @@ export class CheckoutPage {
 			console.log(val);
 			if (val["login"] && val["login"]["token"]) this.login = val["login"];
 			if (val["vendor"]) this.shippingvars.vendor=val["vendor"];
-			if (val["orderlocation"]) this.orderLocation=val["orderlocation"];
+			if (val["orderlocation"]) this.orderlocation=val["orderlocation"];
 			if (val["user"]) this.user = val["user"];
 
 			console.log(this.shippingvars);
