@@ -81,7 +81,7 @@
 					</div>
 					<!-- Size or Orther -->
 					<div *ngIf="(attr.name|uppercase)!='COLOR'" [ngClass]="(attr.name|uppercase)=='SIZE' ? 'attribute-size':'attribute-default'">
-						<div text-uppercase><b dark>{{attr.name}}</b></div>
+						<div text-uppercase><b dark>{{attr.name}}-العدد</b></div>
 						<ion-list mode="md" overflow radio-group [(ngModel)]="attributes[attr.name].option" (ngModelChange)="getVariation()">
 							<ion-item float-left *ngFor="let option of attr.options" no-padding>
 								<ion-label [attr.text-center]="(attr.name|uppercase)=='SIZE'?true:null">{{option}}</ion-label>
@@ -176,7 +176,7 @@
 			<div *ngIf="viewMore">{{'detail.view_less'|translate}}</div>
 		</button>
 		</div>
-		<!-- Buyer Protection 
+		<!-- Buyer Protection
 		<div margin-top class="buyer-protection">
 			<div class="buyer-icon">
 				<ion-icon name="icon-safe" success></ion-icon>

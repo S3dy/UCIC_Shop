@@ -79,7 +79,7 @@ export class DetailCategoryPage {
 					this.page++;
 					this.products = products;
 					this.loaded = true;
-					http.get(wordpress_url + '/wp-json/wooconnector/product/getattribute')
+					http.get(wordpress_url + '/wp-json/wooconnector/product/getattribute?lang='+this.lang)
 					.subscribe(res => {
 						this.attributes = res.json();
 						this.attributes['custom'] = new ObjectToArray().transform(this.attributes['custom']);

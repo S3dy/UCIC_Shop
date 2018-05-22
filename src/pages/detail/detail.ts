@@ -40,6 +40,8 @@ export class DetailPage {
 	images: Object; groupedProduct: Object[];
 	page = 1; over: boolean;
 	display: string;
+	lang:string = "ar";
+
 
 	constructor(
 		navParams: NavParams,
@@ -59,6 +61,9 @@ export class DetailPage {
 		translate.get('detail').subscribe(trans => this.trans = trans);
 		this.id = navParams.get("id");
 		this.storage.get('favorite').then((val) => { if (val) this.favorite = val; });
+		this.storage.get('lang').then((val)=>{
+			this.lang= val;
+		});
 		this.getData();
 	}
 	ionViewDidEnter() {
@@ -67,7 +72,7 @@ export class DetailPage {
 	getData() {
 		// let params = { product_id: this.id };
 		this.core.showLoading();
-		this.http.get(wordpress_url + '/wp-json/wooconnector/product/getproduct/' + this.id).subscribe(res => {
+		this.http.get(wordpress_url + '/wp-json/wooconnector/product/getproduct/' + this.id+'?lang='+this.lang).subscribe(res => {
 			this.detail = res.json();
 			this.reviews_allowed = this.detail['reviews_allowed'];
 			this.rating = this.detail['average_rating'];
@@ -101,13 +106,13 @@ export class DetailPage {
 			if(this.detail.default_attributes.length > 0) {
 				this.detail.default_attributes.forEach((val) => {
 					this.attributes[val["name"]].option = val["option"].toLowerCase();
-					console.log(val["name"]);
+					console.log(val["name"],"mmm");
 				});
 			}
 
 			//get quantities
 			if(this.attributes['Quantity']){
-				console.log(this.attributes['Quantity']);
+				console.log(this.attributes['Quantity'],"lol");
 			}
 			this.getVariation();
 			this.core.hideLoading();
