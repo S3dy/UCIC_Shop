@@ -32,6 +32,7 @@ export class CheckoutPage {
 	trans: string; useBilling: boolean; checkCondition: boolean;
 	today:string = new Date().toJSON().split('T')[0];
 	shippingvars:any={};
+	orderlocation:any;
 	constructor(
 		private storageMul: StorageMulti,
 		private core: Core,
@@ -55,9 +56,11 @@ export class CheckoutPage {
 		this.storageMul.get(['login', 'user', 'cart', 'coupon', 'useBilling','vendor','orderlocation']).then(val => {
 			console.log(val);
 			if (val["login"] && val["login"]["token"]) this.login = val["login"];
-			//if (val["vendor"]) this.shippingvars.vendor=val["vendor"];
-			//if (val["orderlocation"]) this.shippingvars.orderLocation=val["orderlocation"];
+			if (val["vendor"]) this.shippingvars.vendor=val["vendor"];
+			if (val["orderlocation"]) this.orderLocation=val["orderlocation"];
 			if (val["user"]) this.user = val["user"];
+
+			console.log(this.shippingvars);
 			if (val["cart"]) {
 				this.cart = val["cart"];
 				if (this.user) {

@@ -81,7 +81,7 @@
 					</div>
 					<!-- Size or Orther -->
 					<div *ngIf="(attr.name|uppercase)!='COLOR'" [ngClass]="(attr.name|uppercase)=='SIZE' ? 'attribute-size':'attribute-default'">
-						<div text-uppercase><b dark>{{attr.name}}-العدد</b></div>
+						<div text-uppercase><b dark>{{attr.name}}</b></div>
 						<ion-list mode="md" overflow radio-group [(ngModel)]="attributes[attr.name].option" (ngModelChange)="getVariation()">
 							<ion-item float-left *ngFor="let option of attr.options" no-padding>
 								<ion-label [attr.text-center]="(attr.name|uppercase)=='SIZE'?true:null">{{option}}</ion-label>

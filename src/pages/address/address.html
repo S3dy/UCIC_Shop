@@ -49,7 +49,7 @@
 			<ion-label floating>{{'address.address_1'|translate}}</ion-label>
 			<ion-input  type="text" formControlName="shipping_address_1"></ion-input>
 		</ion-item>
-	<img src="https://maps.googleapis.com/maps/api/staticmap?zoom=13&amp;size=600x300&amp;maptype=roadmap&#10;&amp;markers=color:blue|label:S|{{location.lat}},{{location.lng}}&amp;key=AIzaSyDdvRvn8YWggaH1SCuqXiAhbS2CSGFQte0&amp;sensor=false&amp;language=en_US">
+	<img [src]="orderlocation?'https://maps.googleapis.com/maps/api/staticmap?zoom=13&amp;size=600x300&amp;maptype=roadmap&#10;&amp;markers=color:blue|label:S|'+orderlocation.lat+','+orderlocation.lng+'&amp;key=AIzaSyDdvRvn8YWggaH1SCuqXiAhbS2CSGFQte0&amp;sensor=false&amp;language=en_US':''">
 	</form>
 </ion-list>
 <button ion-button block text-uppercase (click)="confirm()" [disabled]="formAddress.invalid">
