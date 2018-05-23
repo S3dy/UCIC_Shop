@@ -178,6 +178,8 @@ export class CheckoutPage {
 		}
 		params = this.core.objectToURLParams(params);
 		if (this.login && this.login['token']) {
+			params['billing_email'] = this.login['user_email'];
+
 			let headers = new Headers();
 			headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 			headers.set('Authorization', 'Bearer ' + this.login["token"]);
