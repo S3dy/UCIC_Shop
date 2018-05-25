@@ -33,6 +33,7 @@ export class CheckoutPage {
 	today:string = new Date().toJSON().split('T')[0];
 	shippingvars:any={};
 	orderlocation:any;
+	lang:string = "ar";
 	constructor(
 		private storageMul: StorageMulti,
 		private core: Core,
@@ -53,12 +54,13 @@ export class CheckoutPage {
 	}
 	ionViewDidEnter() {
 		this.core.showLoading();
-		this.storageMul.get(['login', 'user', 'cart', 'coupon', 'useBilling','vendor','orderlocation']).then(val => {
+		this.storageMul.get(['login', 'user', 'cart', 'coupon', 'useBilling','vendor','orderlocation','lang']).then(val => {
 			console.log(val);
 			if (val["login"] && val["login"]["token"]) this.login = val["login"];
 			if (val["vendor"]) this.shippingvars.vendor=val["vendor"];
 			if (val["orderlocation"]) this.orderlocation=val["orderlocation"];
 			if (val["user"]) this.user = val["user"];
+			if (val["lang"]) this.lang = val["lang"];
 
 			console.log(this.shippingvars);
 			if (val["cart"]) {
@@ -88,7 +90,9 @@ export class CheckoutPage {
 						option['withCredentials'] = true;
 						option['headers'] = headers;
 					}
-					this.http.get(wordpress_url + '/wp-json/wooconnector/calculator/getall', option).subscribe(res => {
+					console.log(this.lang);
+					console.log(option);
+					this.http.get(wordpress_url + '/wp-json/wooconnector/calculator/getall?lang='+this.lang, option).subscribe(res => {
 						this.data = res.json();
 						if (this.data['total']['discount']) {
 							this.coupon = this.data['total']['discount'];

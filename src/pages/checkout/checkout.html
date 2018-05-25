@@ -92,7 +92,7 @@
 					<span dark>{{product.name}}</span>
 					<ion-row wrap padding-4-vertical>
 						<ion-col width-50 no-padding *ngFor="let attr of (product.attributes|ObjectToArray)">
-							<span>{{attr.name}}: </span><b text-capitalize>{{attr.option}}</b>
+							<span>{{'detail.'+attr.name|translate}}: </span><b text-capitalize>{{attr.option}}</b>
 						</ion-col>
 					</ion-row>
 					<ion-row class="product-quantity" wrap>
@@ -154,7 +154,7 @@
 <ion-list padding light-bg no-margin>
 	<div class="checkout-term">
 		<ion-checkbox class="check-allow" mode="md" [(ngModel)]="checkCondition"></ion-checkbox>
-		<div dark class="term-note">{{'checkout.condition'|translate}}<span (click)="showTerms()" primary>{{'checkout.term' | translate}}</span></div>
+		<div dark class="term-note" style="padding-right:6vw">{{'checkout.condition'|translate}}<span (click)="showTerms()" primary>{{'checkout.term' | translate}}</span></div>
 	</div>
 <!-- 	<ion-row *ngIf="data">
 		<ion-col><b dark>{{'checkout.order_total'|translate}}</b></ion-col>

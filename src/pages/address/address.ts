@@ -71,7 +71,7 @@ export class AddressPage {
       billing_company: [''],
       billing_address_1: ['', Validators.required],
       billing_city: ['', Validators.required],
-      billing_postcode: ['', Validators.required],
+      billing_postcode: [''],
       billing_phone: ['', Validators.compose([Validators.required,Validators.pattern(/^05[0-9]{8}$/)])],
       shipping_address_1: ['', Validators.required],
       billing_email: ['', Validators.required],
