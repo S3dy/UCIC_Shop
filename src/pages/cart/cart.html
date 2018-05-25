@@ -25,25 +25,25 @@
 	</ion-col>
 	<ion-col no-padding margin-left>
 		<div dark margin-right [innerHTML]="product.name" [navPush]="DetailPage" [navParams]="{id:product.id}"></div>
-		<ion-row wrap padding-4-vertical>
-			<ion-col width-50 no-padding *ngFor="let attr of (product.attributes|ObjectToArray)">
+		<ion-row wrap padding-4-vertical margin-right margin-left *ngFor="let attr of (product.attributes|ObjectToArray)">
 				<span>{{'detail.'+attr.name|translate}}: </span><b text-capitalize>{{attr.option}}</b>
-			</ion-col>
 		</ion-row >
 		<ion-row dir="ltr" class="product-quantity" wrap>
-			<ion-col no-padding>
-				<span *ngIf="product.sale_price" text-through>
-					{{product.regular_price|price}}
-				</span>
-				<b dark>{{product.price||0|price}}</b>
-			</ion-col>
+
 			<ion-col no-padding *ngIf="!product.sold_individually" class="btn-quantity">
 	<!-- 			<div> -->
-					<div float-left margin-2><span gray>{{'cart.qty'|translate}}</span></div>
+					<div float-right dir="rtl" margin-2><span gray>{{'cart.qty'|translate}}</span></div>
 					<button-quantity [(ngModel)]="data[product.idCart].quantity" (update)="update()">
 					</button-quantity>
 		<!-- 		</div> -->
 			</ion-col>
+
+      <ion-col no-padding col-8>
+        <span *ngIf="product.sale_price" text-through >
+          {{product.regular_price|price}}
+        </span>
+        <b dark>{{product.price||0|price}}</b>
+      </ion-col>
 		</ion-row>
 	</ion-col>
 	<button ion-button clear color="gray" absolute no-margin class="button-delete disable-hover" (click)="delete(product.idCart)">
