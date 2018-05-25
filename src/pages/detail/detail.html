@@ -78,15 +78,15 @@
 								<ion-radio [value]="(option|lowercase)" [style.background]="option"></ion-radio>
 							</ion-item>
 						</ion-list>
+
 					</div>
 					<!-- Size or Orther -->
 					<div *ngIf="(attr.name|uppercase)!='COLOR'" [ngClass]="(attr.name|uppercase)=='SIZE' ? 'attribute-size':'attribute-default'">
 						<div text-uppercase><b dark>{{'detail.'+attr.name|translate}}</b></div>
 						<ion-list mode="md" overflow radio-group [(ngModel)]="attributes[attr.name].option" (ngModelChange)="getVariation()">
-							<ion-item float-left *ngFor="let option of attr.options" no-padding>
-								<ion-label [attr.text-center]="(attr.name|uppercase)=='SIZE'?true:null">{{option}}</ion-label>
-								<ion-radio [value]="(option|lowercase)"></ion-radio>
-							</ion-item>
+							<ion-select [(ngModel)]="attributes[attr.name].option" (ionChange)="getVariation()" placeholder="{{'detail.'+attr.name|translate}}">
+							<ion-option *ngFor="let option of attr.options" [value]="(option|lowercase)">{{option}}</ion-option>
+							</ion-select>
 						</ion-list>
 					</div>
 				</div>
