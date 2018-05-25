@@ -152,7 +152,7 @@
 		"privacy_policy": "الخصوصية",
 		"contact_us": "إتصل بنا",
 		"about_us": "عن الشركة",
-		"version":"النسخة 1.0.11"
+		"version":"النسخة 1.0.12"
 	},
 	"login": {
 		"title": "تسجيل الدخول",
@@ -202,6 +202,8 @@
 		"validate": "موافق"
 	},
 	"detail": {
+		"choose":"اختر",
+		"cancel":"إلغاء",
 		"Quantity": "عدد الآكياس",
 		"title": "التفاصيل",
 		"rating": "التقييم",

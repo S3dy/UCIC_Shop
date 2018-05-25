@@ -84,7 +84,7 @@
 					<div *ngIf="(attr.name|uppercase)!='COLOR'" [ngClass]="(attr.name|uppercase)=='SIZE' ? 'attribute-size':'attribute-default'">
 						<div text-uppercase><b dark>{{'detail.'+attr.name|translate}}</b></div>
 						<ion-list mode="md" overflow radio-group [(ngModel)]="attributes[attr.name].option" (ngModelChange)="getVariation()">
-							<ion-select [(ngModel)]="attributes[attr.name].option" (ionChange)="getVariation()" placeholder="{{'detail.'+attr.name|translate}}">
+							<ion-select okText="{{'detail.choose'|translate}}" cancelText="{{'detail.cancel'|translate}}"[(ngModel)]="attributes[attr.name].option" (ionChange)="getVariation()" placeholder="{{'detail.'+attr.name|translate}}">
 							<ion-option *ngFor="let option of attr.options" [value]="(option|lowercase)">{{option}}</ion-option>
 							</ion-select>
 						</ion-list>
