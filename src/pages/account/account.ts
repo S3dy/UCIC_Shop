@@ -189,10 +189,13 @@ export class AccountPage {
 		this.storage.set('lang',this.lang);
 		//refresh page
 		this.translate.setDefaultLang(this.lang);
+		//this.splashscreen.show();
+		window.location.reload();
 		this.translate.use(this.lang);
-		if(this.lang=="ar")
+		/*if(this.lang=="ar")
 		this.platform.setDir('rtl',true);
 		if(this.lang=="en")
-		this.platform.setDir('ltr',true);
+		//this.platform.setDir('ltr',true);
+		*/
 	}
 }

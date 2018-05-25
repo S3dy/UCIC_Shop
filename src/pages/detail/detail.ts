@@ -63,8 +63,9 @@ export class DetailPage {
 		this.storage.get('favorite').then((val) => { if (val) this.favorite = val; });
 		this.storage.get('lang').then((val)=>{
 			this.lang= val;
+			this.getData();
+
 		});
-		this.getData();
 	}
 	ionViewDidEnter() {
 		this.buttonCart.update();
