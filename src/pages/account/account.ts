@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActionSheetController, AlertController, Platform, NavController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Custom
 import { Storage } from '@ionic/storage';
@@ -62,7 +63,8 @@ export class AccountPage {
 		private InAppBrowser: InAppBrowser,
 		private core: Core,
 		private actionCtr: ActionSheetController,
-		private Device: Device
+		private Device: Device,
+		private splashscreen:SplashScreen
 	) {
 		this.getData();
 	}
@@ -189,8 +191,20 @@ export class AccountPage {
 		this.storage.set('lang',this.lang);
 		//refresh page
 		this.translate.setDefaultLang(this.lang);
-		//this.splashscreen.show();
-		window.location.reload();
+		let alert = this.alertCtrl.create({
+			title: 'Reboot will start',
+			subTitle: 'سيتم اعادة تشغيل التطبيق',
+			buttons: [
+      {
+        text: 'OK - حسنا',
+        handler: data => {
+					this.splashscreen.show();
+					window.location.reload();
+       }
+      }]
+		});
+		alert.present();
+
 		this.translate.use(this.lang);
 		/*if(this.lang=="ar")
 		this.platform.setDir('rtl',true);
@@ -198,4 +212,8 @@ export class AccountPage {
 		//this.platform.setDir('ltr',true);
 		*/
 	}
+
+	presentAlert() {
+
+}
 }
