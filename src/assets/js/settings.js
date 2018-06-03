@@ -1,4 +1,4 @@
-var wordpress_url = "https://elementor.giantpace.com";
+var wordpress_url = "https://unitedcement.com.sa";
 var wordpress_per_page = 10;
 var request_timeout = 30000;
 var open_target_blank = true;

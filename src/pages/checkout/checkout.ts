@@ -219,7 +219,7 @@ export class CheckoutPage {
 	checkout(res) {
 		console.log(res);
 		let order_id;
-		let checkoutUrl = wordpress_url + '/wooconnector-checkout/?data_key=' + res;
+		let checkoutUrl = wordpress_url + '/wooconnector-checkout/?lang=ar&data_key=' + res;
 		if (this.platform.is('cordova')) {
 			this.platform.ready().then(() => {
 				let isCheckout: boolean = false;

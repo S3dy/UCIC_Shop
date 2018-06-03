@@ -150,7 +150,7 @@ export class AccountPage {
 	}
 
 	paymentPage() {
-		this.InAppBrowser.create("http://elementor.giantpace.com/confirm-payment", "_system");
+		this.InAppBrowser.create("https://unitedcement.com.sa/confirm-payment", "_system");
 	}
 	notification() {
 		this.storage.set('notification', this.data["notification"]).then(() => {
