@@ -95,6 +95,7 @@ export class AddressPage {
         this.data = val['user'];
         this.changeCountryBilling(this.data['billing_country']);
         this.changeCountryShipping(this.data['shipping_country']);
+        this.data['billing_email']=this.login['user_email'];
       }
       this.reset();
     });

@@ -43,7 +43,8 @@ export class LoginPage {
 	}
 	login(){
 		this.core.showLoading();
-		this.http.post(wordpress_url+'/wp-json/mobiconnector/jwt/token', this.formLogin.value)
+		//this.http.post(wordpress_url+'/wp-json/mobiconnector/jwt/token', this.formLogin.value)
+		this.http.post(wordpress_url+'/wp-json/jwt-auth/v1/token', this.formLogin.value)
 		.subscribe(
 			res => {
 				let login = res.json();
@@ -65,7 +66,7 @@ export class LoginPage {
 				this.formLogin.patchValue({password: null});
 				this.wrong = true;
 			},
-			
+
 		);
 	}
 	forgot(){

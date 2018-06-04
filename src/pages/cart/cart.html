@@ -82,7 +82,7 @@
 			</span>
 			<ion-icon gray tappable margin-left (click)="remove(i)" name="ios-close-circle-outline" float-left></ion-icon>
 		</ion-col>
-		<ion-col text-right primary *ngIf="coupon.value">-{{coupon.value|price}}</ion-col>
+		<ion-col text-right primary *ngIf="coupon.value">-{{coupon.value}}</ion-col>
 	</ion-row>
 	<button ion-button block icon-right margin-top (click)="gotoAddress()" [disabled]="invalid" class="button-checkout">
 		<span text-uppercase>{{'cart.checkout'|translate}}</span>

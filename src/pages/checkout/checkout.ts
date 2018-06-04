@@ -85,9 +85,10 @@ export class CheckoutPage {
 					};
 					if (this.login && this.login['token']) {
 						let headers = new Headers();
+						console.log(this.login);
 						headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-						headers.set('Authorization', 'Bearer ' + this.login["token"]);
-						option['withCredentials'] = true;
+						//headers.set('Authorization', 'Bearer ' + this.login["token"]);
+						option['withCredentials'] = false;
 						option['headers'] = headers;
 					}
 					console.log(this.lang);
@@ -158,7 +159,8 @@ export class CheckoutPage {
 		Object.assign(params, this.core.filterProfile(this.user));
 		console.log(this.user,'user');
 		console.log(this.data,'data');
-		params['billing_email'] = this.user['billing_email'];
+		params['billing_email'] = this.user['user_email'];
+
 		//params['billing_postcode'] = "11111";
 		params['shipping_method'] = this.shipping;
 		//Needed to fullfill requirements

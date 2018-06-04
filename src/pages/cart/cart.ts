@@ -79,8 +79,8 @@ export class CartPage {
 		this.update();
 	}
 	update() {
-		this.storage.set('cart', this.data).then(() => { 
-			if (Object.keys(this.data).length > 0) this.validate(); 
+		this.storage.set('cart', this.data).then(() => {
+			if (Object.keys(this.data).length > 0) this.validate();
 			else this.checkCart = true;
 		});
 	}
@@ -137,9 +137,11 @@ export class CartPage {
 					this.showAlert(message);
 				} else this.invalid = false;
 				if (resp['discount']) {
+					this.tax=0;
 					if (Array.isArray(resp['tax'])) resp['tax'].forEach(tax => this.tax += tax['value']);
 					this.couponData = resp['discount'];
 				} else {
+					this.tax=0;
 					resp['total'].forEach(product => this.tax += product['tax']);
 				}
 			}, error => {
@@ -332,7 +334,7 @@ export class CartPage {
 						}
 					]
 				});
-				alert.present();	
+				alert.present();
 			}
 		}
 	}
