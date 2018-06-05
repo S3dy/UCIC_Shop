@@ -159,13 +159,13 @@ export class CheckoutPage {
 		Object.assign(params, this.core.filterProfile(this.user));
 		console.log(this.user,'user');
 		console.log(this.data,'data');
-		params['billing_email'] = this.user['user_email'];
-
+		params['billing_email'] = this.user['user_email']?this.user['user_email']:this.data['billing_email'];
+		console.log(params['billing_email']);
 		//params['billing_postcode'] = "11111";
 		params['shipping_method'] = this.shipping;
 		//Needed to fullfill requirements
 		params['shipping_country'] = "SA";
-		params['shipping_postcode'] = this.user['billing_postcode'];
+		params['billing_postcode'] = "00000";//this.user['billing_postcode'];
 		params['shipping_city'] = this.user['billing_city'];
 		params['shipping_phone'] = this.user['billing_phone'];
 		params['shipping_first_name'] = this.user['billing_first_name'];
@@ -173,8 +173,8 @@ export class CheckoutPage {
 		params['order_location_lat']=this.orderlocation['lat'];
 		params['order_location_lng']=this.orderlocation['lng'];
 		params['vendor_id']=this.shippingvars.vendor;
-
 		params['payment_method'] = this.payment;
+		console.log(params['billing_postcode']);
 		if(this.useBilling) params['ship_to_different_address'] = 0;
 		else params['ship_to_different_address'] = 1;
 		if (this.coupon) {
@@ -182,10 +182,13 @@ export class CheckoutPage {
 			this.coupon.forEach(item => coupon.push(item['code']));
 			params['coupons'] = JSON.stringify(coupon);
 		}
-		params = this.core.objectToURLParams(params);
 		if (this.login && this.login['token']) {
 			params['billing_email'] = this.login['user_email'];
-
+		}else{
+			params['billing_email'] = this.user['billing_email'];
+		}
+		params = this.core.objectToURLParams(params);
+		if (this.login && this.login['token']) {
 			let headers = new Headers();
 			headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 			headers.set('Authorization', 'Bearer ' + this.login["token"]);
@@ -221,7 +224,7 @@ export class CheckoutPage {
 	checkout(res) {
 		console.log(res);
 		let order_id;
-		let checkoutUrl = wordpress_url + '/wooconnector-checkout/?lang=ar&data_key=' + res;
+		let checkoutUrl = wordpress_url + '/wooconnector-checkout/?data_key=' + res;
 		if (this.platform.is('cordova')) {
 			this.platform.ready().then(() => {
 				let isCheckout: boolean = false;
