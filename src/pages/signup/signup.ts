@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
+import { Storage } from '@ionic/storage';
 
 // Custom
 import { TranslateService } from '../../module/ng2-translate';
@@ -12,6 +13,7 @@ import { LoginPage } from '../login/login';
 import { CoreValidator } from '../../validator/core';
 import { Core } from '../../service/core.service';
 
+import { AddressPage } from '../address/address';
 declare var wordpress_url;
 
 @Component({
@@ -23,10 +25,13 @@ export class SignupPage {
 	LoginPage = LoginPage;
 	formSignup: FormGroup;
 	trans:Object;
-	
+	AddressPage = AddressPage;
+	wordpress_user:string = wordpress_url+'/wp-json/mobiconnector/user';
+
 	constructor(
 		private navCtrl: NavController,
 		private formBuilder: FormBuilder,
+		private storage: Storage,
 		private http: Http,
 		private core: Core,
 		translate: TranslateService,
@@ -57,7 +62,31 @@ export class SignupPage {
 				toast => {},
 				error => {console.log(error);}
 			);
-			this.gotoLogin();
+			this.http.post(wordpress_url+'/wp-json/jwt-auth/v1/token', this.formSignup.value)
+			.subscribe(
+				res => {
+					let login = res.json();
+					login.username = this.formSignup.value.username;
+					let params = this.core.objectToURLParams({'username':login["username"]});
+					this.http.post(this.wordpress_user+'/get_info', params).subscribe(user => {
+						this.core.hideLoading();
+						this.storage.set('user', user.json()).then(() => {
+						this.storage.set('login', login).then(() => this.navCtrl.push(this.AddressPage));
+						});
+					}, err => {
+						this.core.hideLoading();
+						//this.formLogin.patchValue({password: null});
+						//this.wrong = true;
+					});
+				},
+				err => {
+					this.core.hideLoading();
+					//this.formLogin.patchValue({password: null});
+					//this.wrong = true;
+				},
+
+			);
+			//this.gotoLogin();
 		}, err => {
 			this.core.hideLoading();
 			this.Toast.showShortBottom(err.json()["message"]).subscribe(
