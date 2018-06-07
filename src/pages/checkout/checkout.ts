@@ -31,6 +31,7 @@ export class CheckoutPage {
 	shipping: string; payment: string; products: Object[];
 	trans: string; useBilling: boolean; checkCondition: boolean;
 	today:string = new Date().toJSON().split('T')[0];
+	max:string = addDays(new Date(), 7).toJSON().split('T')[0];
 	shippingvars:any={};
 	orderlocation:any;
 	lang:string = "ar";

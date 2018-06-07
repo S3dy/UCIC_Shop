@@ -1,4 +1,9 @@
 page-detail {
+	.product-slides {
+	    height: 50%;
+	    padding: 2%;
+	    text-align: center;
+	}
 	.product-slides{
 		[absolute]{z-index:11!important}
 		.slides{
@@ -10,6 +15,7 @@ page-detail {
 			left:4px;
 			height:$variable-product-status-detail;
 		}
+
 		.product-favorite{
 			border-radius:100%;
 			padding:0px;
@@ -44,7 +50,7 @@ page-detail {
 	}
 	.product-rate{
 		line-height:26px;
-		align-items: center;	
+		align-items: center;
 	}
 	.detail-footer{
 		button{
@@ -191,7 +197,7 @@ page-detail {
 	.detail-description{
 		border-bottom:2px solid #DADAD9;
 		.description-content{
-			margin:5px 0;			
+			margin:5px 0;
 			margin-bottom:-7px;
 		}
 	}

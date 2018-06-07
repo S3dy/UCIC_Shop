@@ -53,7 +53,7 @@
         "cordova-plugin-device": "~2.0.1",
         "cordova-plugin-geolocation": "~2.4.3",
         "cordova-plugin-google-analytics": "~1.8.3",
-        "cordova-plugin-inappbrowser": "~2.0.2",
+        "cordova-plugin-inappbrowser": "^3.0.0",
         "cordova-plugin-ionic": "^4.1.7",
         "cordova-plugin-ionic-keyboard": "^2.0.5",
         "cordova-plugin-network-information": "~2.0.1",
@@ -92,7 +92,6 @@
                 "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
             },
             "cordova-plugin-google-analytics": {},
-            "cordova-plugin-inappbrowser": {},
             "cordova-plugin-ionic-keyboard": {},
             "cordova-plugin-network-information": {},
             "cordova-plugin-request-location-accuracy": {},
@@ -112,7 +111,8 @@
                 "WARN_DEBUG": "true",
                 "UPDATE_API": "https://api.ionicjs.com",
                 "MAX_STORE": "2"
-            }
+            },
+            "cordova-plugin-inappbrowser": {}
         }
     }
 }

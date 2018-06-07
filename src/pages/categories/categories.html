@@ -10,9 +10,9 @@
 <ion-content>
   <ion-row>
   <ion-col col-10>
-    <!--ion-select [(ngModel)]="selectedaddress" (ionChange)="locate(selectedaddress)" placeholder="Select Address:">
+    <ion-select [hidden]="!isLogin" [(ngModel)]="selectedaddress" (ionChange)="locate(selectedaddress)" placeholder="Select Address:">
     <ion-option *ngFor="let address of locations" [value]="address">{{address.name}}</ion-option>
-  </ion-select-->
+  </ion-select>
 </ion-col>
 <ion-col col-2>
   <button ion-button color="light" (click)="takemylocation()" icon-only>

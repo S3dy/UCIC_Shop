@@ -1,5 +1,11 @@
 
 page-detail-category {
+	.product-image.clearfix {
+    padding: 10%;
+    padding-top: 2%;
+    max-height: 400px;
+    overflow: hidden;
+}
 	.toolbar {
 		.toolbar-content {
 			.title {
@@ -31,7 +37,7 @@ page-detail-category {
 			-webkit-flex: 0 0 100%;
 			-ms-flex: 0 0 100%;
 			flex: 0 0 100%;
-			max-width: 100%;	
+			max-width: 100%;
 			.product-image{
 				width:33.333%;
 				.sale{
@@ -85,7 +91,7 @@ page-detail-category {
 				border-bottom:none;
 				.label{
 					padding-left:40px;
-					
+
 				}
 				.radio-icon{display:none}
 			}
