@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { NavController , Platform} from 'ionic-angular';
-import { Http } from '@angular/http';
+import { Http ,Headers } from '@angular/http';
 import { AlertController } from 'ionic-angular';
 // Custom
 import { Core } from '../../service/core.service';
@@ -218,7 +218,7 @@ this.cd.detectChanges();
 								this.locations = res.json();
 								this.cd.detectChanges();
 
-							}// else this.loadedOrder = true;
+						//	} else this.loadedOrder = true;
 						});
 					};
 				}
