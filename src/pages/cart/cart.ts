@@ -54,7 +54,7 @@ export class CartPage {
 		translate.get('cart').subscribe(trans => this.trans = trans);
 		this.getData();
 		//if (config['required_login']) this.check_require_login = config['required_login'];
-		this.check_require_login= true; 
+		this.check_require_login= true;
 		console.log(config);
 	}
 	ionViewDidEnter() {
@@ -245,6 +245,7 @@ export class CartPage {
 					}
 					this.showAlert(message);
 				} else {
+					this.tax = 0; 
 					if (resp['discount']) {
 						if (Array.isArray(resp['tax'])) resp['tax'].forEach(tax => this.tax += tax['value']);
 						this.storage.set('coupon', coupon).then(() => {

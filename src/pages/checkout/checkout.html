@@ -124,7 +124,7 @@
 						<span>{{'checkout.coupon_code'|translate}}</span>
 						<span primary> ({{coupon.code}}: -{{((coupon.value*1)/data._total*100)|number:'1.2-2'}}%) </span>
 					</ion-col>
-					<ion-col text-right primary>-{{coupon.value|price}}</ion-col>
+					<ion-col text-right primary>-{{coupon.value}}</ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col><b dark>{{'checkout.order_total'|translate}}</b></ion-col>

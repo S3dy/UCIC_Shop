@@ -203,7 +203,6 @@ this.cd.detectChanges();
 					this.cd.detectChanges();
 					this.data['order'] = 0;
 					let params = { post_num_page: 1, post_per_page: 1000 };
-					this.loadedOrder = false;
 					let loadOrder = () => {
 						let headers = new Headers();
 						headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -212,14 +211,16 @@ this.cd.detectChanges();
 							headers: headers,
 							search: this.core.objectToURLParams(params)
 						}).subscribe(res => {
-							if (Array.isArray(res.json())) this.data['order'] += res.json().length;
+						/*	if (Array.isArray(res.json())) this.data['order'] += res.json().length;
 							if (res.json().length == 1000) {
 								params['post_num_page']++;
-								loadOrder();
-							} else this.loadedOrder = true;
+								*/
+								this.locations = res.json();
+								this.cd.detectChanges();
+
+							}// else this.loadedOrder = true;
 						});
 					};
-					loadOrder();
 				}
 				if (val["user"]) this.data["user"] = val["user"];
 				if (val["lang"]) this.lang = val["lang"];

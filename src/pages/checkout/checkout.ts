@@ -31,7 +31,7 @@ export class CheckoutPage {
 	shipping: string; payment: string; products: Object[];
 	trans: string; useBilling: boolean; checkCondition: boolean;
 	today:string = new Date().toJSON().split('T')[0];
-	max:string = addDays(new Date(), 7).toJSON().split('T')[0];
+	max:string ;//= date.setDate(date.getDate() + 7).toJSON().split('T')[0];
 	shippingvars:any={};
 	orderlocation:any;
 	lang:string = "ar";
@@ -48,12 +48,15 @@ export class CheckoutPage {
 		public modalCtrl: ModalController,
 		public config: Config,
 	) {
+
 		translate.get('checkout').subscribe(trans => this.trans = trans);
 		core.showLoading();
 		console.log(this.trans,'trans');
 		console.log(config,'config');
 	}
 	ionViewDidEnter() {
+		var date = new Date();
+		this.max = date.setDate(date.getDate() + 7);//.toJSON().split('T')[0];
 		this.core.showLoading();
 		this.storageMul.get(['login', 'user', 'cart', 'coupon', 'useBilling','vendor','orderlocation','lang']).then(val => {
 			console.log(val);
@@ -142,7 +145,8 @@ export class CheckoutPage {
 		if (this.data['_shipping']) total += this.data['_shipping'];
 		if (this.data['_shipping_tax']) total += this.data['_shipping_tax'];
 		this.coupon.forEach(val => {
-			total = Number(total) - (val['value']);
+			console.log(parseFloat(val['value'].replace(/,/g, '')), total);
+			total = Number(total) - parseFloat(val['value'].replace(/,/g, ''));
 		});
 		if (total < 0) total = 0;
 		return total;
