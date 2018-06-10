@@ -15,6 +15,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import {} from '@types/googlemaps';
 declare var wordpress_url:string;
 //declare var google: any;
+declare let cordova: any;
 @Component({
 	selector: 'page-categories',
 	templateUrl: 'categories.html',
@@ -73,6 +74,7 @@ export class CategoriesPage {
 				map:this.map,
 				position:mylocation,
 			});
+this.forceLocation();
 	let areaCoords =[];
 	let polygons= [];
 	for(var key in polygons){
@@ -116,44 +118,44 @@ this.cd.detectChanges();
 	}
 	initMap(){
 
-		this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then((resp) => {
-			let mylocation = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
-			this.initMapMarkers(mylocation);
-
-		}).catch((error) => {
-		//	this.toast.show(`Location service isn't enabled in your device. Kindly enable location permissions to the app for accurate positioning.`, '5000', 'center')
-			console.log('Error getting location', error);
-			//this.initMapMarkers(mylocation);
-			const alert = this.alertCtrl.create({
-      title: 'GPS Support',
-      subTitle: 'Please enable location support for better service - فضلا قم بتفعيل خدمة تحديد المواقع لنتمكن من خدمتك بشكل افضل',
-      buttons: ['OK - موافق']
-    });
-		alert.present();
-		this.selectvendor();
-		this.cd.detectChanges();
-		});
+		this.takemylocation();
 
 	}
 
 	takemylocation(){
-		console.log('taking back my location');
-		this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then((resp) => {
-			let mylocation = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
-			this.map.setCenter(mylocation);
-		}).catch((error) => {
-			//this.toast.show(`Location service isn't enabled in your device. Kindly enable location permissions to the app for accurate positioning.`, '5000', 'center')
-			console.log('Error getting location', error);
-			//this.initMapMarkers(mylocation);
-			const alert = this.alertCtrl.create({
-      title: 'GPS Support',
-      subTitle: 'Please enable location support for better service - فضلا قم بتفعيل خدمة تحديد المواقع لنتمكن من خدمتك بشكل افضل',
-      buttons: ['OK - موافق']
-    });
-    alert.present();
-		this.selectvendor();
-		this.cd.detectChanges();
-		});
+		cordova.plugins.locationAccuracy.canRequest(function(canRequest){
+	    if(canRequest){
+	        cordova.plugins.locationAccuracy.request(function (success){
+	            console.log("Successfully requested accuracy: "+success.message);
+	        }, function (error){
+	           console.error("Accuracy request failed: error code="+error.code+"; error message="+error.message);
+	           if(error.code !== cordova.plugins.locationAccuracy.ERROR_USER_DISAGREED){
+	               if(window.confirm("Failed to automatically set Location Mode to 'High Accuracy'. Would you like to switch to the Location Settings page and do this manually?")){
+	                   cordova.plugins.diagnostic.switchToLocationSettings();
+	               }
+	           }
+	        }, cordova.plugins.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY);
+	    }else{
+	        // request location permission and try again
+	    }
+	});
+
+							this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }).then((resp) => {
+								let mylocation = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
+								this.map.setCenter(mylocation);
+							}).catch((error) => {
+								//this.toast.show(`Location service isn't enabled in your device. Kindly enable location permissions to the app for accurate positioning.`, '5000', 'center')
+								console.log('Error getting location', error);
+								//this.initMapMarkers(mylocation);
+								const alert = this.alertCtrl.create({
+								title: 'GPS Support',
+								subTitle: 'Please enable location support for better service - فضلا قم بتفعيل خدمة تحديد المواقع لنتمكن من خدمتك بشكل افضل',
+								buttons: ['OK - موافق']
+							});
+							alert.present();
+							this.selectvendor();
+							this.cd.detectChanges();
+							});
 
 	}
 	initMapMarkers(mylocation){
@@ -241,6 +243,10 @@ this.cd.detectChanges();
 		}
 		this.vars.vendorid = 0;
 		console.log(this.vars.vendorid);
+
+	}
+
+	forceLocation(){
 
 	}
 

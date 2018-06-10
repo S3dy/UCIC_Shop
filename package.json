@@ -29,7 +29,7 @@
         "@ionic-native/geolocation": "^4.6.0",
         "@ionic-native/google-analytics": "^4.6.0",
         "@ionic-native/in-app-browser": "^4.6.0",
-        "@ionic-native/location-accuracy": "^4.6.0",
+        "@ionic-native/location-accuracy": "^4.7.0",
         "@ionic-native/network": "^4.6.0",
         "@ionic-native/onesignal": "^4.6.0",
         "@ionic-native/photo-viewer": "^4.6.0",
